@@ -1,3 +1,5 @@
+仓库地址：[Gitee](https://gitee.com/haujet/Markdown-Toolbox) 和 [GitHub](https://github.com/HaujetZhao/Markdown-Toolbox)
+
 用 python 做完了这么一个工具，目前只有一个功能，就是批量将 md 笔记复制或移动到另一指定的文件夹（连带它的相对路径引用的图片、附件一并迁移过去）
 
 如果扩展下的话，还可以做：
