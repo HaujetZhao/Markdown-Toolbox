@@ -7,7 +7,7 @@ from PySide2.QtCore import *
 from moduels.component.NormalValue import 常量
 from moduels.component.Widget_FileList import Widget_FileList
 from moduels.component.Widget_FileLineEdit import Widget_FileLineEdit
-from moduels.function.fileSizeNormalize import fileSizeNormalize
+from moduels.function.得到便于阅读的文件大小 import 得到便于阅读的文件大小
 from moduels.function.从字符串搜索到所有附件路径 import 从字符串搜索到所有附件路径
 
 import os, re
@@ -86,6 +86,7 @@ class Tab_CopyMdFile(QWidget):
         pass
 
     def initValue(self):
+        常量.复制功能标签页 = self
         self.文件列表控件.文件列表.append('D:/Users/Haujet/Documents/Markdown 文档/软件笔记/Shortcut Mapper.md')
         self.文件列表控件.刷新列表()
         self.输出位置输入框.setText('D:/Users/Haujet/Desktop/测试md复制')
@@ -182,7 +183,7 @@ class Tab_CopyMdFile(QWidget):
                     elif 常量.有重名时的处理方式 == 2:
                         continue
                     else:
-                        是否要覆盖 = QMessageBox.question(self, '冲突', f'目标附件已存在，是否覆盖？\n\n源文件（大小 {fileSizeNormalize(os.path.getsize(附件复制的源路径))}）：\n{附件复制的源路径}\n\n目标文件（大小 {fileSizeNormalize(os.path.getsize(附件复制的目标路径))}）：\n{附件复制的目标路径}\n\n', QMessageBox.YesToAll | QMessageBox.Yes | QMessageBox.No | QMessageBox.NoToAll)
+                        是否要覆盖 = QMessageBox.question(self, '冲突', f'目标附件已存在，是否覆盖？\n\n源文件（大小 {得到便于阅读的文件大小(os.path.getsize(附件复制的源路径))}）：\n{附件复制的源路径}\n\n目标文件（大小 {得到便于阅读的文件大小(os.path.getsize(附件复制的目标路径))}）：\n{附件复制的目标路径}\n\n', QMessageBox.YesToAll | QMessageBox.Yes | QMessageBox.No | QMessageBox.NoToAll)
                         if 是否要覆盖 == QMessageBox.YesToAll:
                             常量.有重名时的处理方式 = 1
                             os.remove(附件复制的目标路径)

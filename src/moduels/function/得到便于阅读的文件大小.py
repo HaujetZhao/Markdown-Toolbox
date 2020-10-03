@@ -1,4 +1,4 @@
-def fileSizeNormalize(文件大小):
+def 得到便于阅读的文件大小(文件大小):
     if 文件大小 < 1024:
         return '%i' % 文件大小 + 'B'
     elif 1024 <= 文件大小 < (1024 ** 2):
