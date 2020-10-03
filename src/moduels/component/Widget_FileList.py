@@ -58,7 +58,10 @@ class Widget_FileList(QListWidget):
 
     def 刷新列表(self):
         self.clear()
-        self.addItems(self.文件列表)
+        for item in self.文件列表:
+            item =  '.../' + os.path.basename(os.path.dirname(os.path.dirname(item))) + '/' + os.path.basename(os.path.dirname(item)) + '/' + os.path.basename(item)
+            self.addItem(item)
+        # self.addItems(self.文件列表)
 
     def 删除条目(self):
         条目序号 = self.currentRow()

@@ -8,6 +8,7 @@ from moduels.component.NormalValue import 常量
 from moduels.component.Widget_FileList import Widget_FileList
 from moduels.component.Widget_FileLineEdit import Widget_FileLineEdit
 from moduels.function.fileSizeNormalize import fileSizeNormalize
+from moduels.function.从字符串搜索到所有附件路径 import 从字符串搜索到所有附件路径
 
 import os, re
 
@@ -85,8 +86,8 @@ class Tab_CopyMdFile(QWidget):
         pass
 
     def initValue(self):
-        self.文件列表控件.addItem('D:/Users/Haujet/Documents/Markdown 文档/软件笔记/Shortcut Mapper.md')
         self.文件列表控件.文件列表.append('D:/Users/Haujet/Documents/Markdown 文档/软件笔记/Shortcut Mapper.md')
+        self.文件列表控件.刷新列表()
         self.输出位置输入框.setText('D:/Users/Haujet/Desktop/测试md复制')
         pass
 
@@ -130,7 +131,7 @@ class Tab_CopyMdFile(QWidget):
             常量.状态栏.showMessage('正在移动中')
         else:
             常量.状态栏.showMessage('正在复制中')
-        self.复制附件冲突时的做法 = 0 # 0 是询问，1 是全部覆盖，2 是全部跳过
+        常量.有重名时的处理方式 = 0 # 0 是询问，1 是全部覆盖，2 是全部跳过
         输入文件列表 = self.文件列表控件.文件列表
         输出文件夹路径 = self.输出位置输入框.text().rstrip('/')
         if len(输入文件列表) == 0 or 输出文件夹路径 == '':
@@ -145,19 +146,13 @@ class Tab_CopyMdFile(QWidget):
             except:
                 with open(输入文件, 'r', encoding='gbk') as f:
                     输入文件内容 = f.read()
-            搜索到的粗糙路径列表 = re.findall(r'\]\(.*?\)', 输入文件内容)
-            搜索到的路径列表 = []
-            if 搜索到的粗糙路径列表 != []:
-                for 索引, 附件路径 in enumerate(搜索到的粗糙路径列表):
-                    附件路径 = re.search(r'(?<=\]\()[^ \)]+?(?=[ \)])', 附件路径)
-                    if 附件路径 == None: continue
-                    附件路径 = 附件路径.group()
-                    print(f'附件路径：{附件路径}')
-                    搜索到的路径列表.append(附件路径)
-                if not self.将文档索引的附件复制(输入文件, 搜索到的路径列表, 输出文件夹路径):
-                    return False
+            搜索到的路径列表 = 从字符串搜索到所有附件路径(输入文件内容) # 从文档内容得到链接列表
+            if 搜索到的路径列表 == []:
+                continue
+            if not self.将文档索引的附件复制(输入文件, 搜索到的路径列表, 输出文件夹路径): # 将链接列表中的附件全都复制移动
+                return False
             md文件的复制输出路径 = 输出文件夹路径 + '/' + os.path.basename(输入文件)
-            if self.转移md文档时是否为移动:
+            if self.转移md文档时是否为移动: # 再将文档文件本身移动
                 move(输入文件, md文件的复制输出路径)
             else:
                 copy(输入文件, md文件的复制输出路径)
@@ -182,21 +177,21 @@ class Tab_CopyMdFile(QWidget):
                     QMessageBox.warning(self, '警告', f'附件 {附件复制的源路径} 需要复制到 {附件复制的目标路径}，但是目标路径 {附件复制的目标路径} 已是一个文件夹，所以停止复制，请手动处理后再继续复制')
                     return False
                 if os.path.exists(附件复制的目标路径) and os.path.isfile(附件复制的目标路径):
-                    if self.复制附件冲突时的做法 == 1:
+                    if 常量.有重名时的处理方式 == 1:
                         os.remove(附件复制的目标路径)
-                    elif self.复制附件冲突时的做法 == 2:
+                    elif 常量.有重名时的处理方式 == 2:
                         continue
                     else:
                         是否要覆盖 = QMessageBox.question(self, '冲突', f'目标附件已存在，是否覆盖？\n\n源文件（大小 {fileSizeNormalize(os.path.getsize(附件复制的源路径))}）：\n{附件复制的源路径}\n\n目标文件（大小 {fileSizeNormalize(os.path.getsize(附件复制的目标路径))}）：\n{附件复制的目标路径}\n\n', QMessageBox.YesToAll | QMessageBox.Yes | QMessageBox.No | QMessageBox.NoToAll)
                         if 是否要覆盖 == QMessageBox.YesToAll:
-                            self.复制附件冲突时的做法 = 1
+                            常量.有重名时的处理方式 = 1
                             os.remove(附件复制的目标路径)
                         elif 是否要覆盖 == QMessageBox.Yes:
                             os.remove(附件复制的目标路径)
                         elif 是否要覆盖 == QMessageBox.No:
                             continue
                         elif 是否要覆盖 == QMessageBox.NoToAll:
-                            self.复制附件冲突时的做法 = 2
+                            常量.有重名时的处理方式 = 2
                             continue
                 try:
                     if self.转移md文档时是否为移动:

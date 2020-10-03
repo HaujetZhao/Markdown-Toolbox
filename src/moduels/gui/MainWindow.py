@@ -8,6 +8,7 @@ from moduels.component.NormalValue import 常量
 
 # try:
 from moduels.gui.Tab_CopyMdFile import Tab_CopyMdFile
+from moduels.gui.Tab_LocalizeMdFile import Tab_LocalizeMdFile
 
 
 
@@ -35,7 +36,8 @@ class MainWindow(QMainWindow):
         self.状态栏 = self.statusBar()
         self.标签页控件 = QTabWidget() # 定义中心控件为多 tab 页面
 
-        self.主功能标签页 = Tab_CopyMdFile()
+        self.复制功能标签页 = Tab_CopyMdFile()
+        self.离线化功能标签页 = Tab_LocalizeMdFile()
 
         # self.adjustSize()
         # if 常量.platfm == 'Darwin':
@@ -52,7 +54,8 @@ class MainWindow(QMainWindow):
 
     def initLayout(self):
         self.setCentralWidget(self.标签页控件)
-        self.标签页控件.addTab(self.主功能标签页, self.tr('复制'))
+        self.标签页控件.addTab(self.复制功能标签页, self.tr('复制'))
+        self.标签页控件.addTab(self.离线化功能标签页, self.tr('离线化'))
 
     def initValue(self):
         常量.状态栏 = self.状态栏
