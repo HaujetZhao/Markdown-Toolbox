@@ -14,6 +14,7 @@ class Widget_FileList(QListWidget):
         super(Widget_FileList, self).__init__(parent)
         self.文件列表 = []
         self.setAcceptDrops(True)
+        self.doubleClicked.connect(self.被双击)
 
     def enterEvent(self, a0: QEvent) -> None:
         常量.状态栏.showMessage(self.tr('双击列表项可以清空文件列表'))
@@ -86,4 +87,10 @@ class Widget_FileList(QListWidget):
     def 下移条目(self, 条目序号):
         pass
 
+    def 被双击(self):
+        result = QMessageBox.warning(self, self.tr('清空列表'), self.tr('是否确认清空列表？'), QMessageBox.Yes | QMessageBox.No,
+                                     QMessageBox.Yes)
+        if result == QMessageBox.Yes:
+            self.文件列表 = []
+            self.刷新列表()
 

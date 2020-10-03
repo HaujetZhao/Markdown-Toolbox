@@ -54,6 +54,8 @@ class Tab_CopyMdFile(QWidget):
         self.复制按钮.clicked.connect(self.执行复制任务)
         self.移动按钮.clicked.connect(self.执行移动任务)
 
+
+
         pass
 
     def initLayout(self):
@@ -83,9 +85,9 @@ class Tab_CopyMdFile(QWidget):
         pass
 
     def initValue(self):
-        # self.文件列表控件.addItem('D:/Users/Haujet/Documents/Markdown 文档/吃的/野果.md')
-        # self.文件列表控件.文件列表.append('D:/Users/Haujet/Documents/Markdown 文档/吃的/野果.md')
-        # self.输出位置输入框.setText('D:/Users/Haujet/Desktop/测试md复制')
+        self.文件列表控件.addItem('D:/Users/Haujet/Documents/Markdown 文档/软件笔记/Shortcut Mapper.md')
+        self.文件列表控件.文件列表.append('D:/Users/Haujet/Documents/Markdown 文档/软件笔记/Shortcut Mapper.md')
+        self.输出位置输入框.setText('D:/Users/Haujet/Desktop/测试md复制')
         pass
 
     def 选择目标文件夹(self):
@@ -111,13 +113,13 @@ class Tab_CopyMdFile(QWidget):
 
 
     def 检查路径(self, 路径):
-        print(f'要检查的路径：{路径}')
+        # print(f'要检查的路径：{路径}')
         if not os.path.exists(路径):
             try:
                 os.makedirs(路径)
                 return True
             except:
-                print('创建文件夹失败，有可能是权限问题')
+                # print('创建文件夹失败，有可能是权限问题')
                 return False
         else:
             return True
@@ -134,6 +136,7 @@ class Tab_CopyMdFile(QWidget):
         if len(输入文件列表) == 0 or 输出文件夹路径 == '':
             return
         for 输入文件 in 输入文件列表:
+            print(f'输入文件：{输入文件}')
             if not os.path.exists(输入文件):
                 continue
             try:
@@ -142,11 +145,15 @@ class Tab_CopyMdFile(QWidget):
             except:
                 with open(输入文件, 'r', encoding='gbk') as f:
                     输入文件内容 = f.read()
-            搜索到的路径列表 = re.findall(r'\[.*?\]\(.+?\)', 输入文件内容)
-            if 搜索到的路径列表 != []:
-                for 索引, 附件路径 in enumerate(搜索到的路径列表):
-                    附件路径 = re.search(r'(?<=\]\()[^ \)]+(?=[ \)])', 附件路径).group()
-                    搜索到的路径列表[索引] = 附件路径
+            搜索到的粗糙路径列表 = re.findall(r'\]\(.*?\)', 输入文件内容)
+            搜索到的路径列表 = []
+            if 搜索到的粗糙路径列表 != []:
+                for 索引, 附件路径 in enumerate(搜索到的粗糙路径列表):
+                    附件路径 = re.search(r'(?<=\]\()[^ \)]+?(?=[ \)])', 附件路径)
+                    if 附件路径 == None: continue
+                    附件路径 = 附件路径.group()
+                    print(f'附件路径：{附件路径}')
+                    搜索到的路径列表.append(附件路径)
                 if not self.将文档索引的附件复制(输入文件, 搜索到的路径列表, 输出文件夹路径):
                     return False
             md文件的复制输出路径 = 输出文件夹路径 + '/' + os.path.basename(输入文件)
@@ -169,8 +176,8 @@ class Tab_CopyMdFile(QWidget):
                     continue
                 附件复制的源路径 = 文档所在文件夹 + '/' + 附件路径
                 附件复制的目标路径 = 目标文件夹 + '/' + 附件路径
-                print(f'附件复制的源路径{附件复制的源路径}')
-                print(f'附件复制的目标路径{附件复制的目标路径}')
+                # print(f'附件复制的源路径{附件复制的源路径}')
+                # print(f'附件复制的目标路径{附件复制的目标路径}')
                 if os.path.exists(附件复制的目标路径) and os.path.isdir(附件复制的目标路径):
                     QMessageBox.warning(self, '警告', f'附件 {附件复制的源路径} 需要复制到 {附件复制的目标路径}，但是目标路径 {附件复制的目标路径} 已是一个文件夹，所以停止复制，请手动处理后再继续复制')
                     return False
@@ -196,7 +203,7 @@ class Tab_CopyMdFile(QWidget):
                         move(附件复制的源路径, 附件复制的目标路径)
                     else:
                         copy(附件复制的源路径, 附件复制的目标路径)
-                    print('复制成功')
+                    # print('复制成功')
                 except:
                     print('一份附件复制失败')
         return True
