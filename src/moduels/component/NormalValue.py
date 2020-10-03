@@ -17,6 +17,7 @@ class NormalValue():
 class LocalizeThreadNormalValue():
     进程是否要覆盖 = None
     进程需要等待 = False
+    黑名单域名列表 = []
 
 
 常量 = NormalValue()

@@ -59,7 +59,8 @@ class MainWindow(QMainWindow):
 
     def initValue(self):
         常量.状态栏 = self.状态栏
-        self.setWindowTitle('MarkDown 工具箱')
+        self.窗口标题 = 'MarkDown 工具箱'
+        self.setWindowTitle(self.窗口标题)
         # self.setWindowFlag(Qt.WindowStaysOnTopHint)  # 始终在前台
         pass
 

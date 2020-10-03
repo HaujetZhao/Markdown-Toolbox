@@ -87,9 +87,9 @@ class Tab_CopyMdFile(QWidget):
 
     def initValue(self):
         常量.复制功能标签页 = self
-        self.文件列表控件.文件列表.append('D:/Users/Haujet/Documents/Markdown 文档/软件笔记/Shortcut Mapper.md')
-        self.文件列表控件.刷新列表()
-        self.输出位置输入框.setText('D:/Users/Haujet/Desktop/测试md复制')
+        # self.文件列表控件.文件列表.append('D:/Users/Haujet/Documents/Markdown 文档/软件笔记/Shortcut Mapper.md')
+        # self.文件列表控件.刷新列表()
+        # self.输出位置输入框.setText('D:/Users/Haujet/Desktop/测试md复制')
         pass
 
     def 选择目标文件夹(self):

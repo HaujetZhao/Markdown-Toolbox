@@ -93,17 +93,17 @@ class Tab_LocalizeMdFile(QWidget):
 
     def initValue(self):
         常量.离线化功能标签页 = self
-        if os.path.exists('D:/Users/Haujet/Desktop/测试md复制/test_derive.md'):
-            os.remove('D:/Users/Haujet/Desktop/测试md复制/test_derive.md')
-        if os.path.exists('D:/Users/Haujet/Desktop/测试md复制/test_derive2.md'):
-            os.remove('D:/Users/Haujet/Desktop/测试md复制/test_derive2.md')
+        # if os.path.exists('D:/Users/Haujet/Desktop/测试md复制/test_derive.md'):
+        #     os.remove('D:/Users/Haujet/Desktop/测试md复制/test_derive.md')
+        # if os.path.exists('D:/Users/Haujet/Desktop/测试md复制/test_derive2.md'):
+        #     os.remove('D:/Users/Haujet/Desktop/测试md复制/test_derive2.md')
         # if os.path.exists('D:/Users/Haujet/Desktop/测试md复制/assets'):
         #     rmtree('D:/Users/Haujet/Desktop/测试md复制/assets')
-        copy('D:/Users/Haujet/Desktop/测试md复制/test_origin.md', 'D:/Users/Haujet/Desktop/测试md复制/test_derive.md')
-        copy('D:/Users/Haujet/Desktop/测试md复制/test_origin2.md', 'D:/Users/Haujet/Desktop/测试md复制/test_derive2.md')
-        self.文件列表控件.文件列表.append('D:/Users/Haujet/Desktop/测试md复制/test_derive.md')
-        self.文件列表控件.文件列表.append('D:/Users/Haujet/Desktop/测试md复制/test_derive2.md')
-        self.文件列表控件.刷新列表()
+        # copy('D:/Users/Haujet/Desktop/测试md复制/test_origin.md', 'D:/Users/Haujet/Desktop/测试md复制/test_derive.md')
+        # copy('D:/Users/Haujet/Desktop/测试md复制/test_origin2.md', 'D:/Users/Haujet/Desktop/测试md复制/test_derive2.md')
+        # self.文件列表控件.文件列表.append('D:/Users/Haujet/Desktop/测试md复制/test_derive.md')
+        # self.文件列表控件.文件列表.append('D:/Users/Haujet/Desktop/测试md复制/test_derive2.md')
+        # self.文件列表控件.刷新列表()
         self.输出相对路径输入框.setText('assets')
         self.cookie路径输入框.setPlaceholderText('可选，txt 格式（Netscape HTTP cookie File）')
 

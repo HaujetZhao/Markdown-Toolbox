@@ -1,11 +1,11 @@
-import os, re, time, _io
+import os, re, time, _io, socket
 from http.cookiejar import MozillaCookieJar
 from urllib import request, error
 import urllib.error
 from urllib.parse import urlparse
 from shutil import copy, move, rmtree
 
-from moduels.component.NormalValue import 常量
+from moduels.component.NormalValue import 常量, 离线化进程常量
 
 from moduels.function.得到便于阅读的文件大小 import 得到便于阅读的文件大小
 from moduels.function.由url返回获得文件名 import 由url返回获得文件名
@@ -16,8 +16,10 @@ from PySide2.QtWidgets import *
 
 
 
-
 def 下载链接文件(附件链接, 目标文件夹路径, cookie路径, 提醒是否要覆盖的信号, 进程, 获取进程状态的常量):  # 0 是询问，1 是全部覆盖，2 是全部跳过
+    if urlparse(附件链接).netloc in 离线化进程常量.黑名单域名列表:
+        print(f'该网址的域名已认为暂时不可访问 {附件链接}')
+        return False
     cookie = MozillaCookieJar()
     if os.path.exists(cookie路径):
         cookie.load(cookie路径, ignore_discard=True, ignore_expires=True)
@@ -27,7 +29,7 @@ def 下载链接文件(附件链接, 目标文件夹路径, cookie路径, 提醒
     HEADERS = 处理Headers(HEADERS, 附件链接)  # 有的网站可能需要在 Header 中加入 referencer
     try:
         print(f'开始请求网址，查看其类型 {附件链接}')
-        返回 = 网络请求器.open(request.Request(附件链接, headers=HEADERS, method='HEAD'), timeout=2)  # 先看看是不是网页
+        返回 = 网络请求器.open(request.Request(附件链接, headers=HEADERS, method='HEAD'), timeout=1)  # 先看看是不是网页
         页面返回类型 = 返回.getheader('content-type')
         print(f'得到网页类型 {页面返回类型}')
         if 'text/html' in 页面返回类型:
@@ -35,6 +37,12 @@ def 下载链接文件(附件链接, 目标文件夹路径, cookie路径, 提醒
     except urllib.error.URLError as error:
         if 'timed out' in error.__str__():
             print(f'访问超时，认为此网址因网络因素暂时不可访问，故跳过 {附件链接}')
+            离线化进程常量.黑名单域名列表.append(urlparse(附件链接).netloc)
+            return False
+    except socket.timeout as error:
+        if 'timed out' in error.__str__():
+            print(f'访问超时，认为此网址因网络因素暂时不可访问，故跳过 {附件链接}')
+            离线化进程常量.黑名单域名列表.append(urlparse(附件链接).netloc)
             return False
     except:
         print('用 HEAD 方法获取页面类型失败了')
