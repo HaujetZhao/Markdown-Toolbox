@@ -10,6 +10,7 @@ from moduels.component.Stream import Stream
 # try:
 from moduels.gui.Tab_CopyMdFile import Tab_CopyMdFile
 from moduels.gui.Tab_LocalizeMdFile import Tab_LocalizeMdFile
+from moduels.gui.Tab_ClearAttatchment import Tab_ClearAttatchment
 from moduels.gui.Tab_Stdout import Tab_Stdout
 from moduels.gui.Tab_Config import Tab_Config
 from moduels.gui.Tab_Help import Tab_Help
@@ -42,6 +43,7 @@ class MainWindow(QMainWindow):
 
         self.复制功能标签页 = Tab_CopyMdFile()
         self.离线化功能标签页 = Tab_LocalizeMdFile()
+        self.清理功能标签页 = Tab_ClearAttatchment()
         self.控制台标签页 = Tab_Stdout()
         self.设置标签页 = Tab_Config()
         self.帮助标签页 = Tab_Help()
@@ -56,6 +58,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.标签页控件)
         self.标签页控件.addTab(self.复制功能标签页, self.tr('复制'))
         self.标签页控件.addTab(self.离线化功能标签页, self.tr('离线化'))
+        self.标签页控件.addTab(self.清理功能标签页, self.tr('清理'))
         self.标签页控件.addTab(self.控制台标签页, self.tr('控制台'))
         self.标签页控件.addTab(self.设置标签页, self.tr('设置'))
         self.标签页控件.addTab(self.帮助标签页, self.tr('帮助'))

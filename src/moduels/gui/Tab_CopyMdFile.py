@@ -86,6 +86,11 @@ class Tab_CopyMdFile(QWidget):
         pass
 
     def initValue(self):
+        self.文件列表控件.需要验证为文件 = True
+        self.文件列表控件.需要验证为文件夹 = False
+        self.文件列表控件.正则匹配样式 = r'.+\.md$'
+        self.文件列表控件选择文件时候的提示 = '选择要添加的 md 文件'
+        self.文件列表控件选择文件时候的过滤器 = 'MD文档 (*.md)'
         常量.复制功能标签页 = self
         # self.文件列表控件.文件列表.append('D:/Users/Haujet/Documents/Markdown 文档/软件笔记/Shortcut Mapper.md')
         # self.文件列表控件.刷新列表()
@@ -128,7 +133,7 @@ class Tab_CopyMdFile(QWidget):
 
 
     def 转移md文档(self):
-        输入文件列表 = self.文件列表控件.文件列表
+        输入文件列表 = self.文件列表控件.路径列表
         输出文件夹路径 = self.输出位置输入框.text().rstrip('/')
         if len(输入文件列表) == 0 or 输出文件夹路径 == '':
             return
