@@ -7,8 +7,8 @@ from PySide2.QtCore import *
 from moduels.component.NormalValue import 常量
 from moduels.component.Widget_FileList import Widget_FileList
 from moduels.component.Widget_FileLineEdit import Widget_FileLineEdit
-from moduels.function.得到便于阅读的文件大小 import 得到便于阅读的文件大小
-from moduels.function.从字符串搜索到所有附件路径 import 从字符串搜索到所有附件路径
+from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
+from moduels.function.getAllUrlFromString import 从字符串搜索到所有附件路径
 
 import os, re
 

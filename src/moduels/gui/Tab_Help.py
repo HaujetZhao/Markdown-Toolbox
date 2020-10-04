@@ -57,10 +57,10 @@ class Tab_Help(QWidget):
 
     def openHelpDocument(self):
         try:
-            if 常量.platfm == 'Darwin':
+            if 常量.系统平台 == 'Darwin':
                 import shlex
-                os.system("open " + shlex.quote(self.tr("./misc/笔记/README_zh.html")))
-            elif 常量.platfm == 'Windows':
-                os.startfile(os.path.realpath(self.tr('./misc/笔记/README_zh.html')))
+                os.system("open " + shlex.quote(self.tr("./misc/Docs/README_zh.html")))
+            elif 常量.系统平台 == 'Windows':
+                os.startfile(os.path.realpath(self.tr('./misc/Docs/README_zh.html')))
         except:
             print('未能打开帮助文档')

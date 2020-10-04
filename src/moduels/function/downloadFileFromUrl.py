@@ -7,9 +7,9 @@ from shutil import copy, move, rmtree
 
 from moduels.component.NormalValue import 常量, 离线化进程常量
 
-from moduels.function.得到便于阅读的文件大小 import 得到便于阅读的文件大小
-from moduels.function.由url返回获得文件名 import 由url返回获得文件名
-from moduels.function.处理Headers import 处理Headers
+from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
+from moduels.function.getFileNameFromUrl import 由url返回获得文件名
+from moduels.function.processHeaders import 处理Headers
 
 from PySide2.QtWidgets import *
 

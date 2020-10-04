@@ -40,10 +40,10 @@ setup(
         'src': ['*.md',
                 'style.css', 
                 'requirements.txt'],
-        'src/misc':['笔记/*.*', '*.ico', '*.icns', '*.jpg']},
+        'src/misc':['Docs/*.*', '*.ico', '*.icns', '*.jpg']},
     
     entry_points={  # Optional console gui
-        'console_scripts': [
+        'gui_scripts': [
             'Markdown-Toolbox=src.__init__:main',
             'MarkdownToolbox=src.__init__:main'
         ]},

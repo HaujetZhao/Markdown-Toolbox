@@ -5,10 +5,10 @@ from PySide2.QtGui import *
 from PySide2.QtCore import *
 
 from moduels.component.NormalValue import 常量, 离线化进程常量
-from moduels.function.从字符串搜索到所有附件路径 import 从字符串搜索到所有附件路径
-from moduels.function.将文档索引的链接本地化 import 将文档索引的链接本地化
-from moduels.function.检查路径 import 检查路径
-from moduels.function.跳转链接还原 import 跳转链接还原
+from moduels.function.getAllUrlFromString import 从字符串搜索到所有附件路径
+from moduels.function.localizeLinksInDocument import 将文档索引的链接本地化
+from moduels.function.checkDirectoryPath import 检查路径
+from moduels.function.restoreLinkFromJump import 跳转链接还原
 
 import os, re
 from http.cookiejar import MozillaCookieJar
