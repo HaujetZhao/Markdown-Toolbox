@@ -9,6 +9,9 @@ import re, os
 class Widget_FileList(QListWidget):
     """这个列表控件可以拖入文件"""
     # signal = Signal(list)
+    正则匹配样式  = r'.+\.md$'
+    需要验证为文件 = True
+    需要验证为文件夹 = False
 
     def __init__(self, parent=None):
         super(Widget_FileList, self).__init__(parent)
@@ -48,13 +51,17 @@ class Widget_FileList(QListWidget):
             event.ignore()
 
     def 验证文件路径(self, 文件路径):
-        pattern  = r'.+\.md$'
-        if not re.match(pattern, 文件路径):
+        路径是否为文件夹 = os.path.isdir(文件路径)
+        路径是否为文件 = os.path.isfile(文件路径)
+        if not re.match(self.正则匹配样式, 文件路径):
             return False
-        for 文件 in self.文件列表:
-            if 文件路径 == 文件:
-                return False
-        return True
+        if 文件路径 in self.文件列表:
+            return False
+        if self.需要验证为文件 and 路径是否为文件:
+            return True
+        elif self.需要验证为文件夹 and 路径是否为文件夹:
+            return True
+        return False
 
     def 刷新列表(self):
         self.clear()
