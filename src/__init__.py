@@ -14,6 +14,7 @@ from PySide2.QtGui import *
 
 from moduels.component.NormalValue import 常量
 from moduels.gui.MainWindow import MainWindow
+from moduels.gui.SystemTray import SystemTray
 
 
 ############# 程序入口 ################
@@ -22,6 +23,9 @@ def main():
     app = QApplication(sys.argv)
     mainWindow = MainWindow()
     常量.mainWindow = mainWindow
+    图标路径 = 'misc/icon.icns' if 常量.系统平台 == 'Darwin' else 'misc/icon.ico'
+    tray = SystemTray(QIcon(图标路径), mainWindow)
+    常量.tray = tray
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

@@ -6,6 +6,10 @@ class NormalValue():
     styleFile = './style.css'
     version = 'V0.0.01'
     mainWindow = None
+    tray = None
+    数据库路径 = 'misc/database.db'
+    数据库连接 = sqlite3.connect(数据库路径)
+    数据库偏好设置表单名 = 'Preference'
     状态栏 = None
     系统平台 = platform.system()
     有重名时的处理方式 = 0
@@ -20,5 +24,21 @@ class LocalizeThreadNormalValue():
     黑名单域名列表 = []
 
 
+
 常量 = NormalValue()
 离线化进程常量 = LocalizeThreadNormalValue()
+
+def 初始化数据库():
+    cursor = 常量.数据库连接.cursor()
+    result = cursor.execute(f'select * from sqlite_master where name = "{常量.数据库偏好设置表单名}";')  # 检查初始偏好设置表在不在数据库
+    if result.fetchone() == None:
+        cursor.execute(f'''create table {常量.数据库偏好设置表单名} (
+                                                id integer primary key autoincrement,
+                                                item text,
+                                                value text
+                                                )''')
+        常量.数据库连接.commit()
+    else:
+        print('偏好设置表单已存在')
+
+初始化数据库()

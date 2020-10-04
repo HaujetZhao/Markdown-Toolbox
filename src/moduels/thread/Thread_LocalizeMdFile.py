@@ -30,16 +30,16 @@ class Thread_LocalizeMdFile(QThread):
         super(Thread_LocalizeMdFile, self).__init__(parent)
 
     def run(self):
+        输入文件列表 = self.输入文件列表
+        目标相对文件夹路径 = self.目标相对路径.rstrip('/').lstrip('/')
+        if len(输入文件列表) == 0 or 目标相对文件夹路径 == '':
+            return
         for 组件 in self.执行期间需要禁用的组件:
             组件.setDisabled(True)
         常量.状态栏.showMessage('正在离线化中')
         常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（执行中……）')
         离线化进程常量.黑名单域名列表 = []
         常量.有重名时的处理方式 = 0  # 0 是询问，1 是全部覆盖，2 是全部跳过
-        输入文件列表 = self.输入文件列表
-        目标相对文件夹路径 = self.目标相对路径.rstrip('/').lstrip('/')
-        if len(输入文件列表) == 0 or 目标相对文件夹路径 == '':
-            return
         for 输入文件 in 输入文件列表:
             print(f'输入文件：{输入文件}')
             if not os.path.exists(输入文件):

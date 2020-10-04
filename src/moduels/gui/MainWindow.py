@@ -11,6 +11,7 @@ from moduels.component.Stream import Stream
 from moduels.gui.Tab_CopyMdFile import Tab_CopyMdFile
 from moduels.gui.Tab_LocalizeMdFile import Tab_LocalizeMdFile
 from moduels.gui.Tab_Stdout import Tab_Stdout
+from moduels.gui.Tab_Config import Tab_Config
 
 
 
@@ -41,18 +42,9 @@ class MainWindow(QMainWindow):
         self.复制功能标签页 = Tab_CopyMdFile()
         self.离线化功能标签页 = Tab_LocalizeMdFile()
         self.控制台标签页 = Tab_Stdout()
+        self.设置标签页 = Tab_Config()
 
         self.标准输出流 = Stream()
-
-        # self.adjustSize()
-        # if 常量.platfm == 'Darwin':
-        #     self.setWindowIcon(QIcon('misc/icon.icns'))
-        # else:
-        #     self.setWindowIcon(QIcon('misc/icon.ico'))
-        # self.setWindowTitle('Quick Cut')
-
-        #
-
 
     def initSlots(self):
         self.标准输出流.newText.connect(self.更新控制台输出)
@@ -63,28 +55,22 @@ class MainWindow(QMainWindow):
         self.标签页控件.addTab(self.复制功能标签页, self.tr('复制'))
         self.标签页控件.addTab(self.离线化功能标签页, self.tr('离线化'))
         self.标签页控件.addTab(self.控制台标签页, self.tr('控制台'))
+        self.标签页控件.addTab(self.设置标签页, self.tr('设置'))
 
     def initValue(self):
         常量.状态栏 = self.状态栏
         self.窗口标题 = 'MarkDown 工具箱'
         self.setWindowTitle(self.窗口标题)
+        if 常量.系统平台 == 'Darwin':
+            self.setWindowIcon(QIcon('misc/icon.icns'))
+        else:
+            self.setWindowIcon(QIcon('misc/icon.ico'))
         # self.setWindowFlag(Qt.WindowStaysOnTopHint)  # 始终在前台
         sys.stdout = self.标准输出流
         # sys.stderr = self.标准输出流
 
     def 更新控制台输出(self, text):
         self.控制台标签页.print(text)
-    # def onUpdateText(self):
-
-
-    # def onUpdateText(self, text):
-    #     """Write console output to text widget."""
-    #     test = 1
-    # cursor = self.process.textCursor()
-    # cursor.movePosition(QTextCursor.End)
-    # cursor.insertText(text)
-    # self.process.setTextCursor(cursor)
-    # self.process.ensureCursorVisible()
 
 
     def loadStyleSheet(self):
@@ -105,12 +91,12 @@ class MainWindow(QMainWindow):
             self.status.showMessage('已成功更新主题', 800)
 
 
-    # def closeEvent(self, event):
-    #     """Shuts down application on close."""
-    #     # Return stdout to defaults.
-    #     if 常量.mainWindow.ConfigTab.hideToSystemTraySwitch.isChecked():
-    #         event.ignore()
-    #         self.hide()
-    #     else:
-    #         sys.stdout = sys.__stdout__
-    #         super().closeEvent(event)
+    def closeEvent(self, event):
+        """Shuts down application on close."""
+        # Return stdout to defaults.
+        if self.设置标签页.hideToSystemTraySwitch.isChecked():
+            event.ignore()
+            self.hide()
+        else:
+            sys.stdout = sys.__stdout__
+            super().closeEvent(event)

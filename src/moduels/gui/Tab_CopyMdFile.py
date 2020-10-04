@@ -128,15 +128,15 @@ class Tab_CopyMdFile(QWidget):
 
 
     def 转移md文档(self):
+        输入文件列表 = self.文件列表控件.文件列表
+        输出文件夹路径 = self.输出位置输入框.text().rstrip('/')
+        if len(输入文件列表) == 0 or 输出文件夹路径 == '':
+            return
         if self.转移md文档时是否为移动:
             常量.状态栏.showMessage('正在移动中')
         else:
             常量.状态栏.showMessage('正在复制中')
         常量.有重名时的处理方式 = 0 # 0 是询问，1 是全部覆盖，2 是全部跳过
-        输入文件列表 = self.文件列表控件.文件列表
-        输出文件夹路径 = self.输出位置输入框.text().rstrip('/')
-        if len(输入文件列表) == 0 or 输出文件夹路径 == '':
-            return
         for 输入文件 in 输入文件列表:
             print(f'输入文件：{输入文件}')
             if not os.path.exists(输入文件):
@@ -153,10 +153,14 @@ class Tab_CopyMdFile(QWidget):
             if not self.将文档索引的附件复制(输入文件, 搜索到的路径列表, 输出文件夹路径): # 将链接列表中的附件全都复制移动
                 return False
             md文件的复制输出路径 = 输出文件夹路径 + '/' + os.path.basename(输入文件)
-            if self.转移md文档时是否为移动: # 再将文档文件本身移动
-                move(输入文件, md文件的复制输出路径)
-            else:
-                copy(输入文件, md文件的复制输出路径)
+            try:
+                if self.转移md文档时是否为移动: # 再将文档文件本身移动
+                    move(输入文件, md文件的复制输出路径)
+                else:
+                    copy(输入文件, md文件的复制输出路径)
+            except:
+                print(f'无法将 {输入文件} 移动到指定位置 {md文件的复制输出路径}')
+                continue
         self.复制附件冲突时的做法 = 0
         常量.状态栏.showMessage('任务完成')
 
