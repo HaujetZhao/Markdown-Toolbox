@@ -23,10 +23,14 @@ class LocalizeThreadNormalValue():
     进程需要等待 = False
     黑名单域名列表 = []
 
+class ClearThreadNormalValue():
+    是否确认要删除找到的无用文件 = False
+    进程需要等待 = False
 
 
 常量 = NormalValue()
 离线化进程常量 = LocalizeThreadNormalValue()
+清理化进程常量 = ClearThreadNormalValue()
 
 def 初始化数据库():
     cursor = 常量.数据库连接.cursor()
