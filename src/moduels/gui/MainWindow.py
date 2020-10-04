@@ -12,6 +12,7 @@ from moduels.gui.Tab_CopyMdFile import Tab_CopyMdFile
 from moduels.gui.Tab_LocalizeMdFile import Tab_LocalizeMdFile
 from moduels.gui.Tab_Stdout import Tab_Stdout
 from moduels.gui.Tab_Config import Tab_Config
+from moduels.gui.Tab_Help import Tab_Help
 
 
 
@@ -43,6 +44,7 @@ class MainWindow(QMainWindow):
         self.离线化功能标签页 = Tab_LocalizeMdFile()
         self.控制台标签页 = Tab_Stdout()
         self.设置标签页 = Tab_Config()
+        self.帮助标签页 = Tab_Help()
 
         self.标准输出流 = Stream()
 
@@ -56,6 +58,7 @@ class MainWindow(QMainWindow):
         self.标签页控件.addTab(self.离线化功能标签页, self.tr('离线化'))
         self.标签页控件.addTab(self.控制台标签页, self.tr('控制台'))
         self.标签页控件.addTab(self.设置标签页, self.tr('设置'))
+        self.标签页控件.addTab(self.帮助标签页, self.tr('帮助'))
 
     def initValue(self):
         常量.状态栏 = self.状态栏
