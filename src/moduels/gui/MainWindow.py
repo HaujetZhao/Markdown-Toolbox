@@ -32,8 +32,6 @@ class MainWindow(QMainWindow):
         self.initValue()  # 再定义各个控件的值
         self.show()
 
-
-
         # self.setWindowState(Qt.WindowMaximized)
         # sys.stdout = Stream(newText=self.onUpdateText)
 

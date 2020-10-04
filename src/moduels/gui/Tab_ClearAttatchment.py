@@ -9,7 +9,7 @@ from moduels.component.Widget_FileList import Widget_FileList
 from moduels.thread.Thread_ClearAttatchment import Thread_ClearAttatchment
 
 import os
-from shutil import copy, move, rmtree
+from shutil import copy, move, rmtree, copytree
 
 
 class Tab_ClearAttatchment(QWidget):
@@ -19,6 +19,7 @@ class Tab_ClearAttatchment(QWidget):
         self.initSlots()  # 再将各个控件连接到信号槽
         self.initLayout()  # 然后布局
         self.initValue()  # 再定义各个控件的值
+        # self.test()
 
     def initElement(self):
         self.文件夹列表控件 = Widget_FileList()
@@ -84,6 +85,14 @@ class Tab_ClearAttatchment(QWidget):
         if 结果 == QMessageBox.Yes:
             清理化进程常量.是否确认要删除找到的无用文件 = True
         清理化进程常量.进程需要等待 = False
+
+    def test(self):
+        if os.path.exists('D:/Users/Haujet/Desktop/测试md复制/测试用/测试1'):
+            rmtree('D:/Users/Haujet/Desktop/测试md复制/测试用/测试1')
+        copytree('D:/Users/Haujet/Desktop/测试md复制/原始/测试1', 'D:/Users/Haujet/Desktop/测试md复制/测试用/测试1')
+        self.文件夹列表控件.路径列表.append('D:/Users/Haujet/Desktop/测试md复制/测试用/测试1')
+        self.文件夹列表控件.刷新列表()
+        # 常量.mainWindow.
 
 
 
