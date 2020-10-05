@@ -9,7 +9,7 @@ from moduels.function.checkDirectoryPath import 检查路径
 from shutil import copy, move, rmtree
 
 
-from moduels.component.NormalValue import 常量, 离线化进程常量
+from moduels.component.NormalValue import 常量, 离线化线程常量
 
 def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 目标相对文件夹路径, 提醒是否要覆盖的信号, 进程, 获取进程状态的常量):
     下载目标路径 = os.path.dirname(文档) + '/' + 目标相对文件夹路径
@@ -49,7 +49,7 @@ def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 
                                          f'目标附件已存在，是否覆盖？\n\n源文件（大小 {得到便于阅读的文件大小(os.path.getsize(附件链接))}）：\n{附件链接}\n\n目标文件（大小 {得到便于阅读的文件大小(os.path.getsize(附件复制的目标路径))}）：\n{附件复制的目标路径}\n\n')
                     while 获取进程状态的常量.进程需要等待:
                         进程.sleep(1)
-                    是否要覆盖 = 获取进程状态的常量.进程是否要覆盖
+                    是否要覆盖 = 获取进程状态的常量.进程是否下载文件覆盖本地文件
                     if 是否要覆盖 == QMessageBox.YesToAll:
                         常量.有重名时的处理方式 = 1
                         os.remove(附件复制的目标路径)
@@ -75,7 +75,7 @@ def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 
                                         f'目标附件已存在，是否覆盖？\n\n源文件（大小 {得到便于阅读的文件大小(os.path.getsize(转换出的相对链接))}）：\n{转换出的相对链接}\n\n目标文件（大小 {得到便于阅读的文件大小(os.path.getsize(附件复制的目标路径))}）：\n{附件复制的目标路径}\n\n')
                         while 获取进程状态的常量.进程需要等待:
                             进程.sleep(1)
-                        是否要覆盖 = 获取进程状态的常量.进程是否要覆盖
+                        是否要覆盖 = 获取进程状态的常量.进程是否下载文件覆盖本地文件
                         if 是否要覆盖 == QMessageBox.YesToAll:
                             常量.有重名时的处理方式 = 1
                             os.remove(附件复制的目标路径)

@@ -1,7 +1,7 @@
 # coding=utf-8
 # python setup.py sdist build
 # python setup.py sdist –formats = gztar,zip
-# twine upload "dist/Markdown-Toolbox-0.0.01.tar.gz"
+# twine upload "dist/Markdown-Toolbox-0.0.2.tar.gz"
 # 这是用于上传 pypi 前打包用的
 
 
@@ -15,9 +15,9 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setup(
     name='Markdown-Toolbox',
-    version='0.0.01',
+    version='0.0.2',
     description=(
-        '一款轻量、强大、好用的视频处理软件。'
+        '一Markdown 工具箱，是我为 Markdown 笔记管理做的一个工具集。'
     ),
     long_description=long_description,
     long_description_content_type='text/markdown',

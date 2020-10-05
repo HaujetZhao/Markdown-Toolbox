@@ -4,7 +4,7 @@ import subprocess
 
 class NormalValue():
     styleFile = './style.css'
-    version = 'V0.0.01'
+    version = 'V0.0.2'
     mainWindow = None
     tray = None
     数据库路径 = 'misc/database.db'
@@ -15,11 +15,14 @@ class NormalValue():
     有重名时的处理方式 = 0
     复制功能标签页 = None
     离线化功能标签页 = None
-    离线化进程是否要覆盖 = None
-    离线化进程需要等待 = False
+
+class TransportThreadNormalValue():
+    有重名时的处理方式 = 0
+    进程需要等待 = False
+    回复数值 = 0 # 0 表示
 
 class LocalizeThreadNormalValue():
-    进程是否要覆盖 = None
+    进程是否下载文件覆盖本地文件 = None
     进程需要等待 = False
     黑名单域名列表 = []
 
@@ -29,8 +32,9 @@ class ClearThreadNormalValue():
 
 
 常量 = NormalValue()
-离线化进程常量 = LocalizeThreadNormalValue()
-清理化进程常量 = ClearThreadNormalValue()
+转移线程常量 = TransportThreadNormalValue()
+离线化线程常量 = LocalizeThreadNormalValue()
+清理化线程常量 = ClearThreadNormalValue()
 
 def 初始化数据库():
     cursor = 常量.数据库连接.cursor()

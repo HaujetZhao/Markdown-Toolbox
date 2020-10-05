@@ -4,7 +4,7 @@ from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
 
-from moduels.component.NormalValue import 常量, 清理化进程常量
+from moduels.component.NormalValue import 常量, 清理化线程常量
 from moduels.function.getAllUrlFromString import 从字符串搜索到所有附件路径
 from moduels.function.localizeLinksInDocument import 将文档索引的链接本地化
 from moduels.function.checkDirectoryPath import 检查路径
@@ -106,12 +106,12 @@ class Thread_ClearAttatchment(QThread):
                 if 目标文件夹 not in 无效附件移动到的文件夹列表:
                     无效附件移动到的文件夹列表.append(目标文件夹)
                 print(f'成功将 {无用附件} 移动到 {目标完整路径名}')
-        清理化进程常量.进程需要等待 = True
+        清理化线程常量.进程需要等待 = True
         if len(无效附件移动到的文件夹列表) > 0:
             self.提醒是否确认要删除的信号.emit()
-            while 清理化进程常量.进程需要等待:
+            while 清理化线程常量.进程需要等待:
                 self.sleep(1)
-            if 清理化进程常量.是否确认要删除找到的无用文件:
+            if 清理化线程常量.是否确认要删除找到的无用文件:
                 print('确认要删除无用附件')
                 for 无效附件目录 in 无效附件移动到的文件夹列表:
                     try:

@@ -4,7 +4,7 @@ from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
 
-from moduels.component.NormalValue import 常量, 清理化进程常量
+from moduels.component.NormalValue import 常量, 清理化线程常量
 from moduels.component.Widget_FileList import Widget_FileList
 from moduels.thread.Thread_ClearAttatchment import Thread_ClearAttatchment
 
@@ -83,8 +83,8 @@ class Tab_ClearAttatchment(QWidget):
     def 弹窗提示已移动但需要手动确认删除(self):
         结果 = QMessageBox.question(self, '请确认是否要删除', '为了安全起见，已将所有 md 文档的相对路径未引用的附件移动到了同级的“未引用附件”文件夹中，删除需要你手动二次确认，是否要删除？', QMessageBox.Yes | QMessageBox.No)
         if 结果 == QMessageBox.Yes:
-            清理化进程常量.是否确认要删除找到的无用文件 = True
-        清理化进程常量.进程需要等待 = False
+            清理化线程常量.是否确认要删除找到的无用文件 = True
+        清理化线程常量.进程需要等待 = False
 
     def test(self):
         if os.path.exists('D:/Users/Haujet/Desktop/测试md复制/测试用/测试1'):

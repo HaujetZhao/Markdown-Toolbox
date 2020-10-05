@@ -4,7 +4,7 @@ from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
 
-from moduels.component.NormalValue import 常量, 离线化进程常量
+from moduels.component.NormalValue import 常量, 离线化线程常量
 from moduels.component.Widget_FileList import Widget_FileList
 from moduels.component.Widget_FileLineEdit import Widget_FileLineEdit
 from moduels.thread.Thread_LocalizeMdFile import Thread_LocalizeMdFile
@@ -138,8 +138,8 @@ class Tab_LocalizeMdFile(QWidget):
         self.进程.start()
 
     def 弹窗询问是否要覆盖写入文件(self, 标题, 内容):
-        离线化进程常量.进程是否要覆盖 = QMessageBox.question(self, 标题, 内容, QMessageBox.YesToAll | QMessageBox.Yes | QMessageBox.No | QMessageBox.NoToAll)
-        离线化进程常量.进程需要等待 = False
+        离线化线程常量.进程是否下载文件覆盖本地文件 = QMessageBox.question(self, 标题, 内容, QMessageBox.YesToAll | QMessageBox.Yes | QMessageBox.No | QMessageBox.NoToAll)
+        离线化线程常量.进程需要等待 = False
 
 
 

@@ -4,7 +4,7 @@ from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
 
-from moduels.component.NormalValue import 常量, 离线化进程常量
+from moduels.component.NormalValue import 常量, 离线化线程常量
 from moduels.function.getAllUrlFromString import 从字符串搜索到所有附件路径
 from moduels.function.localizeLinksInDocument import 将文档索引的链接本地化
 from moduels.function.checkDirectoryPath import 检查路径
@@ -38,7 +38,7 @@ class Thread_LocalizeMdFile(QThread):
             组件.setDisabled(True)
         常量.状态栏.showMessage('正在离线化中')
         常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（执行中……）')
-        离线化进程常量.黑名单域名列表 = []
+        离线化线程常量.黑名单域名列表 = []
         常量.有重名时的处理方式 = 0  # 0 是询问，1 是全部覆盖，2 是全部跳过
         for 输入文件 in 输入文件列表:
             print(f'输入文件：{输入文件}')
@@ -63,7 +63,7 @@ class Thread_LocalizeMdFile(QThread):
             是否成功, 搜索到的路径列表 = 跳转链接还原(输入文件, 搜索到的路径列表)
             if not 是否成功:
                 continue
-            if not 将文档索引的链接本地化(输入文件, 搜索到的路径列表, self.cookie路径, 目标相对文件夹路径, self.提醒是否要覆盖的信号, self, 离线化进程常量):  # 将链接列表中的附件全都复制移动
+            if not 将文档索引的链接本地化(输入文件, 搜索到的路径列表, self.cookie路径, 目标相对文件夹路径, self.提醒是否要覆盖的信号, self, 离线化线程常量):  # 将链接列表中的附件全都复制移动
                 return False
         常量.状态栏.showMessage('任务完成')
         常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（完成）')

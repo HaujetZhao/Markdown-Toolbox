@@ -14,3 +14,61 @@ QGroupBox:title {
 	margin-top: 0.5ex;
 	left: 2ex;
 }
+
+QMessageBox QPushButton[text="OK"] {
+    qproperty-text: "好的";
+}
+QMessageBox QPushButton[text="Open"] {
+    qproperty-text: "打开";
+}
+QMessageBox QPushButton[text="Save"] {
+    qproperty-text: "保存";
+}
+QMessageBox QPushButton[text="Cancel"] {
+    qproperty-text: "取消";
+}
+QMessageBox QPushButton[text="Close"] {
+    qproperty-text: "关闭";
+}
+QMessageBox QPushButton[text="Discard"] {
+    qproperty-text: "不保存";
+}
+QMessageBox QPushButton[text="Don't Save"] {
+    qproperty-text: "不保存";
+}
+QMessageBox QPushButton[text="Apply"] {
+    qproperty-text: "应用";
+}
+QMessageBox QPushButton[text="Reset"] {
+    qproperty-text: "重置";
+}
+QMessageBox QPushButton[text="Restore Defaults"] {
+    qproperty-text: "恢复默认";
+}
+QMessageBox QPushButton[text="Help"] {
+    qproperty-text: "帮助";
+}
+QMessageBox QPushButton[text="Save All"] {
+    qproperty-text: "保存全部";
+}
+QMessageBox QPushButton[text="&Yes"] {
+    qproperty-text: "是";
+}
+QMessageBox QPushButton[text="Yes to &All"] {
+    qproperty-text: "全部都是";
+}
+QMessageBox QPushButton[text="&No"] {
+    qproperty-text: "不";
+}
+QMessageBox QPushButton[text="N&o to All"] {
+    qproperty-text: "全部都不";
+}
+QMessageBox QPushButton[text="Abort"] {
+    qproperty-text: "终止";
+}
+QMessageBox QPushButton[text="Retry"] {
+    qproperty-text: "重试";
+}
+QMessageBox QPushButton[text="Ignore"] {
+    qproperty-text: "忽略";
+}
