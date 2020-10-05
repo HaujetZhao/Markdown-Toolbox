@@ -13,7 +13,7 @@ class Stream(QObject):
 
     def write(self, text):
         self.newText.emit(str(text))
-        QApplication.processEvents()
+        # QApplication.processEvents()
 
     def flush(self):
         pass

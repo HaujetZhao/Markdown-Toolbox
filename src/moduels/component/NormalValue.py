@@ -4,7 +4,7 @@ import subprocess
 
 class NormalValue():
     styleFile = './style.css'
-    version = 'V0.0.2'
+    version = 'V0.0.3'
     mainWindow = None
     tray = None
     数据库路径 = 'misc/database.db'
@@ -15,6 +15,13 @@ class NormalValue():
     有重名时的处理方式 = 0
     复制功能标签页 = None
     离线化功能标签页 = None
+
+class ThreadNormalValue():
+    # 进程常量
+    有重名时的处理方式 = 0
+    进程需要等待 = False
+    主进程提示框回复值 = 0 # 0 表示
+
 
 class TransportThreadNormalValue():
     有重名时的处理方式 = 0
