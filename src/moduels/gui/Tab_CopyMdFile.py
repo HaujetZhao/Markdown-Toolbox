@@ -125,7 +125,7 @@ class Tab_CopyMdFile(QWidget):
             常量.状态栏.showMessage('正在移动中')
         else:
             常量.状态栏.showMessage('正在复制中')
-        常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（执行中……）')
+        # 常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（执行中……）')
         常量.有重名时的处理方式 = 0
         for 输入文件 in 输入文件列表:
             print(f'输入文件：{输入文件}')
@@ -158,7 +158,7 @@ class Tab_CopyMdFile(QWidget):
         for 控件 in 执行期间要禁用的控件:
             控件.setEnabled(True)
         常量.状态栏.showMessage('任务完成')
-        常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（完成）')
+        # 常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（完成）')
 
     def 检查路径(self, 路径):
         # print(f'要检查的路径：{路径}')

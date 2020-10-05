@@ -4,7 +4,7 @@ import subprocess
 
 class NormalValue():
     styleFile = './style.css'
-    version = 'V0.0.3'
+    version = 'V0.0.6'
     mainWindow = None
     tray = None
     数据库路径 = 'misc/database.db'

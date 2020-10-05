@@ -52,8 +52,12 @@ def 下载链接文件(附件链接, 目标文件夹路径, cookie路径, 提醒
     except:
         print(f'附件下载失败：{附件链接}')
         return False
-    页面返回内容大小 = 得到便于阅读的文件大小(返回.getheader('content-length'))
-    输出文件名 = 由url返回获得文件名(附件链接, 返回)
+    try:
+        页面返回内容大小 = 得到便于阅读的文件大小(int(返回.getheader('content-length')))
+        输出文件名 = 由url返回获得文件名(附件链接, 返回)
+    except:
+        print('网址无法访问，可能不是有效网址')
+        return False
     if 输出文件名 == False:
         print(f'附件下载失败：{附件链接}')
         return False

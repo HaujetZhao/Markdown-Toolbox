@@ -10,7 +10,7 @@ from moduels.function.localizeLinksInDocument import 将文档索引的链接本
 from moduels.function.checkDirectoryPath import 检查路径
 from moduels.function.restoreLinkFromJump import 跳转链接还原
 
-import os, re
+import os, re, time
 from http.cookiejar import MozillaCookieJar
 from urllib import request, error
 import urllib.error
@@ -37,7 +37,7 @@ class Thread_LocalizeMdFile(QThread):
         for 组件 in self.执行期间需要禁用的组件:
             组件.setDisabled(True)
         常量.状态栏.showMessage('正在离线化中')
-        常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（执行中……）')
+        # 常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（执行中……）')
         离线化线程常量.黑名单域名列表 = []
         常量.有重名时的处理方式 = 0  # 0 是询问，1 是全部覆盖，2 是全部跳过
         for 输入文件 in 输入文件列表:
@@ -66,11 +66,11 @@ class Thread_LocalizeMdFile(QThread):
             if not 将文档索引的链接本地化(输入文件, 搜索到的路径列表, self.cookie路径, 目标相对文件夹路径, self.提醒是否要覆盖的信号, self, 离线化线程常量):  # 将链接列表中的附件全都复制移动
                 return False
         常量.状态栏.showMessage('任务完成')
-        常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（完成）')
+        # 常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（完成）')
         for 组件 in self.执行期间需要禁用的组件:
             组件.setEnabled(True)
         print('')
-        print('全部任务完成')
+        print(f'离线化任务完成 {time.time()}')
 
 
     # def 将文档索引的链接本地化(self, 文档, 附件链接列表, 目标相对文件夹路径):
