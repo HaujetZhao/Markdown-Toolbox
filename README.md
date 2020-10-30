@@ -10,7 +10,7 @@ Markdown 工具箱，是我为 Markdown 笔记管理做的一个工具集。目�
 
 - **复制**
 
-  将批量将 md 笔记（连带它的相对路径引用的图片、附件）复制或移动到另一指定的文件夹
+  批量将 md 笔记（连带它的相对路径引用的图片、附件）复制或移动到另一指定的文件夹
 
 - **离线化**
 
@@ -24,7 +24,7 @@ Markdown 工具箱，是我为 Markdown 笔记管理做的一个工具集。目�
 
 ## 👍 安装和使用方式
 
-因为还在测试阶段，目前还未发布到 pypi 上，等到时候发布到 pip 上，就呆以在安装 python3 后，使用 `pip install Markdown-Toolbox` 安装，再使用 `MarkdownToolbox` 或 `Markdown-Toolbox` 命令启动了。
+已发布到 pypi 上，安装 python3 后，使用 `pip install Markdown-Toolbox` 即可安装，再使用 `MarkdownToolbox` 或 `Markdown-Toolbox` 命令就可以启动了。
 
 你也可以将仓库克隆到本地，在 `src` 文件夹内，先使用 `pip install -r requirements.txt` 安装依赖后，使用 `python __init__.py` 启动。
 
