@@ -1,7 +1,7 @@
 # coding=utf-8
 # python setup.py sdist build
 # python setup.py sdist –formats = gztar,zip
-# twine upload "dist/Markdown-Toolbox-0.0.6.tar.gz"
+# twine upload "dist/Markdown-Toolbox-0.0.7.tar.gz"
 # 这是用于上传 pypi 前打包用的
 
 
@@ -15,7 +15,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setup(
     name='Markdown-Toolbox',
-    version='0.0.6',
+    version='0.0.7',
     description=(
         '一Markdown 工具箱，是我为 Markdown 笔记管理做的一个工具集。'
     ),
@@ -30,22 +30,22 @@ setup(
     install_requires=[ # 需要额外安装的包
         'PySide2'
         ],
-    packages=['src',
-              'src/misc',
-              'src/moduels/component',
-              'src/moduels/function',
-              'src/moduels/gui',
-              'src/moduels/thread'], # 需要打包的本地包（package）
+    packages=['Markdown_Toolbox',
+              'Markdown_Toolbox/misc',
+              'Markdown_Toolbox/moduels/component',
+              'Markdown_Toolbox/moduels/function',
+              'Markdown_Toolbox/moduels/gui',
+              'Markdown_Toolbox/moduels/thread'], # 需要打包的本地包（package）
     package_data={ # 每个本地包中需要包含的另外的文件
-        'src': ['*.md',
+        'Markdown_Toolbox': ['*.md',
                 'style.css', 
                 'requirements.txt'],
-        'src/misc':['Docs/*.*', '*.ico', '*.icns', '*.jpg']},
+        'Markdown_Toolbox/misc':['Docs/*.*', '*.ico', '*.icns', '*.jpg']},
     
     entry_points={  # Optional console gui
         'gui_scripts': [
-            'Markdown-Toolbox=src.__init__:main',
-            'MarkdownToolbox=src.__init__:main'
+            'Markdown-Toolbox=Markdown_Toolbox.__init__:main',
+            'MarkdownToolbox=Markdown_Toolbox.__init__:main'
         ]},
     
     

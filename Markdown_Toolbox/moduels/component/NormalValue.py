@@ -4,7 +4,7 @@ import subprocess
 
 class NormalValue():
     styleFile = './style.css'
-    version = 'V0.0.6'
+    version = 'V0.0.7'
     mainWindow = None
     tray = None
     数据库路径 = 'misc/database.db'
@@ -32,6 +32,7 @@ class LocalizeThreadNormalValue():
     进程是否下载文件覆盖本地文件 = None
     进程需要等待 = False
     黑名单域名列表 = []
+    检查链接超时时长 = 3
 
 class ClearThreadNormalValue():
     是否确认要删除找到的无用文件 = False

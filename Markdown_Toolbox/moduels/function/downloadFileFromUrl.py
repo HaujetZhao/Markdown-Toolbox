@@ -29,7 +29,7 @@ def 下载链接文件(附件链接, 目标文件夹路径, cookie路径, 提醒
     HEADERS = 处理Headers(HEADERS, 附件链接)  # 有的网站可能需要在 Header 中加入 referencer
     try:
         print(f'开始请求网址，查看其类型 {附件链接}')
-        返回 = 网络请求器.open(request.Request(附件链接, headers=HEADERS, method='HEAD'), timeout=1)  # 先看看是不是网页
+        返回 = 网络请求器.open(request.Request(附件链接, headers=HEADERS, method='HEAD'), timeout=离线化线程常量.检查链接超时时长)  # 先看看是不是网页
         页面返回类型 = 返回.getheader('content-type')
 
         print(f'得到网页类型 {页面返回类型}')
