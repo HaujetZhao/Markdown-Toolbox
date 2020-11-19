@@ -104,6 +104,7 @@ def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 
     except:
         with open(文档, 'w', encoding='gbk') as f:
             f.write(文档内容)
+    离线化线程常量.黑名单域名列表 = []
     return True
 
 # def 本地化附件(序号, 链接, 下载目标路径):

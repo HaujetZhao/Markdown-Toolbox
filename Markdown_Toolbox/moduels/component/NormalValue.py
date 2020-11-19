@@ -32,7 +32,7 @@ class LocalizeThreadNormalValue():
     进程是否下载文件覆盖本地文件 = None
     进程需要等待 = False
     黑名单域名列表 = []
-    检查链接超时时长 = 3
+    检查链接超时时长 = 10
 
 class ClearThreadNormalValue():
     是否确认要删除找到的无用文件 = False
