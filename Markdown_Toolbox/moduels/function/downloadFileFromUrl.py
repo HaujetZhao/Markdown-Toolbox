@@ -50,7 +50,7 @@ def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie
         return False
 
     try:
-        返回 = requests.request('get', 附件链接, headers=HEADERS, cookies=cookies, stream=True)
+        返回 = requests.request('get', 附件链接, headers=HEADERS, cookies=cookies, stream=True, timeout=离线化线程常量.检查链接超时时长)
     except:
         print(f'{线程序号} 号线程：附件下载失败：{附件链接}')
         return False
@@ -69,7 +69,10 @@ def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie
         线程锁.acquire()
         if 常量.有重名时的处理方式 == 1:  # 0 是询问，1 是全部覆盖，2 是全部跳过
             线程锁.release()
-            open(目标文件夹路径 + '/' + 输出文件名, 'wb').write(返回.content)
+            try:
+                open(目标文件夹路径 + '/' + 输出文件名, 'wb').write(返回.content)
+            except:
+                print(f'写入失败：{输出文件名}')
             print(f'{线程序号} 号线程：写入完成：{目标文件夹路径 + "/" + 输出文件名}')
         elif 常量.有重名时的处理方式 == 2:
             线程锁.release()
@@ -82,7 +85,10 @@ def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie
             是否要覆盖 = 离线化线程常量.进程是否下载文件覆盖本地文件
             if 是否要覆盖 == QMessageBox.YesToAll:
                 常量.有重名时的处理方式 = 1
-                open(目标文件夹路径 + '/' + 输出文件名, 'wb').write(返回.content)
+                try:
+                    open(目标文件夹路径 + '/' + 输出文件名, 'wb').write(返回.content)
+                except:
+                    print(f'写入失败：{输出文件名}')
                 print(f'{线程序号} 号线程：写入完成：{目标文件夹路径 + "/" + 输出文件名}')
             elif 是否要覆盖 == QMessageBox.Yes:
                 open(目标文件夹路径 + '/' + 输出文件名, 'wb').write(返回.content)
@@ -93,7 +99,10 @@ def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie
                 常量.有重名时的处理方式 = 2
                 pass
     else:
-        open(目标文件夹路径 + '/' + 输出文件名, 'wb').write(返回.content)
+        try:
+            open(目标文件夹路径 + '/' + 输出文件名, 'wb').write(返回.content)
+        except:
+            print(f'写入失败：{输出文件名}')
         print(f'{线程序号} 号线程：写入完成：{目标文件夹路径 + "/" + 输出文件名}')
     return 输出文件名
 

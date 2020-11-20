@@ -34,6 +34,8 @@ class LocalizeThreadNormalValue():
     黑名单域名列表 = []
     检查链接超时时长 = 5
     下载附件线程数 = 30
+    可以开启下一个文件处理线程 = False
+    正在工作线程数 = 0
 
 class ClearThreadNormalValue():
     是否确认要删除找到的无用文件 = False

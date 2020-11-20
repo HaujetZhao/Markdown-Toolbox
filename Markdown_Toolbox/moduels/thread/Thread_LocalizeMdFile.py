@@ -10,7 +10,7 @@ from moduels.function.localizeLinksInDocument import 将文档索引的链接本
 from moduels.function.checkDirectoryPath import 检查路径
 from moduels.function.restoreLinkFromJump import 跳转链接还原
 
-import os, re, time
+import os, re, time, threading
 from http.cookiejar import MozillaCookieJar
 from urllib import request, error
 import urllib.error
@@ -41,6 +41,7 @@ class Thread_LocalizeMdFile(QThread):
         # 常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（执行中……）')
         离线化线程常量.黑名单域名列表 = []
         常量.有重名时的处理方式 = 0  # 0 是询问，1 是全部覆盖，2 是全部跳过
+        下载线程锁 = threading.Lock()
         for 文件序号, 输入文件 in enumerate(输入文件列表):
             print(f'\n\n\n\n\n\n离线化任务数：{len(输入文件列表)}，正在处理第 {文件序号 + 1} 个，文件路径：“{输入文件}”\n')
             if not os.path.exists(输入文件):
@@ -64,8 +65,15 @@ class Thread_LocalizeMdFile(QThread):
             是否成功, 搜索到的路径列表 = 跳转链接还原(输入文件, 搜索到的路径列表)
             if not 是否成功:
                 continue
-            if not 将文档索引的链接本地化(输入文件, 搜索到的路径列表, self.cookie路径, 目标相对文件夹路径, self.提醒是否要覆盖的信号, self):  # 将链接列表中的附件全都复制移动
-                return False
+            离线化线程常量.可以开启下一个文件处理线程 = False
+            threading.Thread(target=将文档索引的链接本地化, args=(输入文件, 搜索到的路径列表, self.cookie路径, 目标相对文件夹路径, self.提醒是否要覆盖的信号, self, 下载线程锁)).start()
+            # if not 将文档索引的链接本地化(输入文件, 搜索到的路径列表, self.cookie路径, 目标相对文件夹路径, self.提醒是否要覆盖的信号, self):  # 将链接列表中的附件全都复制移动
+            #     return False
+            while not 离线化线程常量.可以开启下一个文件处理线程 or 离线化线程常量.正在工作线程数 > 离线化线程常量.下载附件线程数 * 4:
+                time.sleep(1)
+        while 离线化线程常量.正在工作线程数 > 0:
+            print(f'还有 {离线化线程常量.正在工作线程数} 个线程在工作')
+            time.sleep(1)
         常量.状态栏.showMessage('任务完成')
         # 常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（完成）')
         for 组件 in self.执行期间需要禁用的组件:

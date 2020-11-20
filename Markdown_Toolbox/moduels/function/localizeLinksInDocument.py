@@ -46,6 +46,8 @@ class LocalizeLinkListThread(threading.Thread):
             self.附件链接 = self.任务内容.附件链接列表.pop()
         else:
             # print('{self.线程序号} 号线程：列表数量不大于 0，返回 False')
+            离线化线程常量.可以开启下一个文件处理线程 = True
+            离线化线程常量.正在工作线程数 -= 1
             self.线程锁.release()
             return False
         self.线程锁.release()
@@ -53,6 +55,9 @@ class LocalizeLinkListThread(threading.Thread):
         return True
 
     def run(self):
+        self.线程锁.acquire()
+        离线化线程常量.正在工作线程数 += 1
+        self.线程锁.release()
         while self.得到链接():
             附件链接 = self.附件链接
             附件复制的目标路径 = self.任务内容.下载目标路径 + '/' + os.path.basename(self.附件链接)
@@ -136,7 +141,7 @@ class LocalizeLinkListThread(threading.Thread):
 
 
 
-def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 目标相对文件夹路径, 提醒是否要覆盖的信号, 进程):
+def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 目标相对文件夹路径, 提醒是否要覆盖的信号, 进程, 下载线程锁):
     下载目标路径 = os.path.dirname(文档) + '/' + 目标相对文件夹路径
     if not 检查路径(下载目标路径): # 先确保下载附件的文件夹存在
         return False
@@ -150,7 +155,7 @@ def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 
     任务内容.提醒是否要覆盖的信号 = 提醒是否要覆盖的信号
     任务内容.进程 = 进程
     线程数 = 离线化线程常量.下载附件线程数
-    线程锁 = threading.Lock()
+    线程锁 = 下载线程锁
     链接列表本地化线程 = []
     print(f'下载附件线程数：{线程数}')
     for i in range(线程数):
@@ -161,7 +166,7 @@ def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 
         for i in range(线程数):
             if 链接列表本地化线程[i].isAlive():
                 有线程还活着 = True
-                print(f'进程 {i} 还在工作')
+                print(f'进程 {i} 还在工作，它正处理的链接是：{链接列表本地化线程[i].附件链接}')
                 break # 只要有一个线程还在工作，就继续 sleep
             else:
                 有线程还活着 = False
