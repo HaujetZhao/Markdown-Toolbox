@@ -34,6 +34,13 @@ def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie
         print(f'{线程序号} 号线程：得到网页类型 {页面返回类型}')
         if 'text/html' in 页面返回类型:
             return False
+        try:
+            页面状态 = 返回.headers['status']
+            if '404' in 页面状态:
+                print(f'404 未找到网页 {附件链接}')
+                return False
+        except:
+            pass
     except requests.Timeout as error:
         print(f'{线程序号} 号线程：访问超时，认为此网址因网络因素暂时不可访问，故跳过 {附件链接}')
         离线化线程常量.黑名单域名列表.append(urlparse(附件链接).netloc)
@@ -48,6 +55,8 @@ def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie
     except:
         print(f'{线程序号} 号线程：用 HEAD 方法获取页面类型失败了，放弃下载 {附件链接}')
         return False
+    try:
+
 
     try:
         返回 = requests.request('get', 附件链接, headers=HEADERS, cookies=cookies, stream=True, timeout=离线化线程常量.检查链接超时时长)
