@@ -161,6 +161,7 @@ def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 
         for i in range(线程数):
             if 链接列表本地化线程[i].isAlive():
                 有线程还活着 = True
+                print(f'进程 {i} 还在工作')
                 break # 只要有一个线程还在工作，就继续 sleep
             else:
                 有线程还活着 = False
