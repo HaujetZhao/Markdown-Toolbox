@@ -13,6 +13,7 @@ def 由url返回获得文件名(url, 返回):
     try:
         页面返回类型 = 返回.getheader('content-type')
         if 'text/html' in 页面返回类型:
+            print(f'该链接导向的是一个 text/html 网页，放弃下载：{url}')
             return False
         内容布置 = 返回.getheader('Content-Disposition')
     except:
@@ -29,7 +30,12 @@ def 由url返回获得文件名(url, 返回):
     else:
         try:
             文件名 = os.path.basename(urlparse(url).path)
-            print('从原始 url 获得文件名')
+            print(f'从原始 url 获得文件名：{文件名}')
+            if os.path.splitext(文件名)[1] == '':
+                if 'image/jpeg' in 页面返回类型:
+                    文件名 += '.jpg'
+                    print(f'添加后缀名 jpg：{文件名}')
+
         except:
             print(f'没能获得文件名，url：{url}')
             return False

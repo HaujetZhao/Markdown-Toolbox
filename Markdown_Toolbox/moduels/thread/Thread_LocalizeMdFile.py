@@ -36,12 +36,13 @@ class Thread_LocalizeMdFile(QThread):
             return
         for 组件 in self.执行期间需要禁用的组件:
             组件.setDisabled(True)
-        常量.状态栏.showMessage('正在离线化中')
+        常量.状态栏.showMessage('正在离线化中，到控制台页面可以查看进度')
+        print(f'\n开始执行离线化任务 {time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())}')
         # 常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（执行中……）')
         离线化线程常量.黑名单域名列表 = []
         常量.有重名时的处理方式 = 0  # 0 是询问，1 是全部覆盖，2 是全部跳过
-        for 输入文件 in 输入文件列表:
-            print(f'输入文件：{输入文件}')
+        for 文件序号, 输入文件 in enumerate(输入文件列表):
+            print(f'\n\n\n\n\n\n离线化任务数：{len(输入文件列表)}，正在处理第 {文件序号 + 1} 个，文件路径：“{输入文件}”\n')
             if not os.path.exists(输入文件):
                 continue
             try:
@@ -63,14 +64,13 @@ class Thread_LocalizeMdFile(QThread):
             是否成功, 搜索到的路径列表 = 跳转链接还原(输入文件, 搜索到的路径列表)
             if not 是否成功:
                 continue
-            if not 将文档索引的链接本地化(输入文件, 搜索到的路径列表, self.cookie路径, 目标相对文件夹路径, self.提醒是否要覆盖的信号, self, 离线化线程常量):  # 将链接列表中的附件全都复制移动
+            if not 将文档索引的链接本地化(输入文件, 搜索到的路径列表, self.cookie路径, 目标相对文件夹路径, self.提醒是否要覆盖的信号, self):  # 将链接列表中的附件全都复制移动
                 return False
         常量.状态栏.showMessage('任务完成')
         # 常量.mainWindow.setWindowTitle(常量.mainWindow.窗口标题 + '（完成）')
         for 组件 in self.执行期间需要禁用的组件:
             组件.setEnabled(True)
-        print('')
-        print(f'离线化任务完成 {time.time()}')
+        print(f'\n离线化任务完成 {time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) }')
 
 
     # def 将文档索引的链接本地化(self, 文档, 附件链接列表, 目标相对文件夹路径):
@@ -127,8 +127,6 @@ class Thread_LocalizeMdFile(QThread):
     #             f.write(文档内容)
     #     return True
 
-    def 处理Headers(self, HEADERS, 附件链接):
-        pass
 
 
     # def 下载链接文件(self, 附件链接, 目标文件夹路径, cookie路径): # 0 是询问，1 是全部覆盖，2 是全部跳过
