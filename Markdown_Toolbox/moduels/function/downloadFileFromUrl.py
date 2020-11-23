@@ -55,7 +55,7 @@ def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie
     except:
         print(f'{线程序号} 号线程：用 HEAD 方法获取页面类型失败了，放弃下载 {附件链接}')
         return False
-    try:
+    # try:
 
 
     try:
