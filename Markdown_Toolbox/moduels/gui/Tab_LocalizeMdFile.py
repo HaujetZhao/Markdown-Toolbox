@@ -111,6 +111,11 @@ class Tab_LocalizeMdFile(QWidget):
         self.输出相对路径输入框.setText('assets')
         self.cookie路径输入框.setPlaceholderText('可选，txt 格式（Netscape HTTP cookie File）')
 
+        # 测试部分代码
+        # copy('D:/Users/Haujet/Desktop/Markdown 离线化测试/文档/测试文档 - 源文件.md', 'D:/Users/Haujet/Desktop/Markdown 离线化测试/文档/测试文档.md')
+        # self.文件列表控件.路径列表.append('D:/Users/Haujet/Desktop/Markdown 离线化测试/文档/测试文档.md')
+        # self.文件列表控件.刷新列表()
+
 
 
     # def 选择一个文件填充到输入框(self, 文件类型, 输入框):

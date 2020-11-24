@@ -62,6 +62,7 @@ class LocalizeLinkListThread(threading.Thread):
             附件链接 = self.附件链接
             附件复制的目标路径 = self.任务内容.下载目标路径 + '/' + os.path.basename(self.附件链接.replace('\\', '/'))
             转换出的相对链接 = os.path.dirname(self.任务内容.文档) + '/' + self.附件链接.replace('\\', '/')
+            print(f'\n原始链接：{self.附件链接}\n文档链接：{os.path.dirname(self.任务内容.文档)}\n合成链接：{转换出的相对链接}\n')
             if os.path.exists(转换出的相对链接):  # 如果这个链接是相对链接
                 print(f'转换出的相对链接存在')
                 if 转换出的相对链接 != 附件复制的目标路径:  # 如果这个相对链接不是目标相对文件夹内的文件
@@ -89,12 +90,25 @@ class LocalizeLinkListThread(threading.Thread):
                             elif 是否要覆盖 == QMessageBox.NoToAll:
                                 常量.有重名时的处理方式 = 2
                                 continue
-                    move(转换出的相对链接, 附件复制的目标路径)
+                    if os.path.dirname(self.任务内容.文档) in os.path.abspath(转换出的相对链接).replace('\\', '/'): # 如果这个文件在文档文件夹下，就移动，如果在上级文件夹之上，就复制。
+                        move(转换出的相对链接, 附件复制的目标路径)
+                    else:
+                        copy(转换出的相对链接, 附件复制的目标路径)
                     self.线程锁.acquire()
-                    self.任务内容.文档内容 = self.任务内容.文档内容.replace(附件链接, self.任务内容.目标相对文件夹路径 + '/' + os.path.basename(附件链接))
+                    应替换成的内容 = self.任务内容.目标相对文件夹路径 + '/' + os.path.basename(附件链接)
+                    if ' ' in 应替换成的内容:
+                        if f'<{附件链接}>' not in self.任务内容.文档内容:
+                            应替换成的内容 = f'<{应替换成的内容}>'
+                    self.任务内容.文档内容 = self.任务内容.文档内容.replace(附件链接, 应替换成的内容)
                     self.线程锁.release()
                     # print(文档内容)
-                else:  # 如果这个相对链接就是目标相对文件夹内的文件，那就不用复制了
+                else:  # 如果这个相对链接就是目标相对文件夹内的文件，那就检查下是不是带空格的链接，如果带空格，是不是用的 [](<url>) 的格式
+                    self.线程锁.acquire()
+                    if ' ' in 附件链接:
+                        if f'<{附件链接}>' or f'"{附件链接}"' or f"'{附件链接}'" not in self.任务内容.文档内容:
+                            应替换成的内容 = '<' + 附件链接.replace('\\', '/') + '>'
+                            self.任务内容.文档内容 = self.任务内容.文档内容.replace(附件链接, 应替换成的内容)
+                    self.线程锁.release()
                     continue
             elif os.path.exists(附件链接):  # 如果这个文件是本地绝对路径，就转为相对路径
                 print(f'该链接为绝对路径，现将其转为相对路径：{附件链接}')
@@ -122,16 +136,35 @@ class LocalizeLinkListThread(threading.Thread):
                         elif 是否要覆盖 == QMessageBox.NoToAll:
                             常量.有重名时的处理方式 = 2
                             continue
-                copy(附件链接, 附件复制的目标路径)
+
+                if os.path.dirname(self.任务内容.文档) in os.path.abspath(转换出的相对链接).replace('\\', '/'): # 如果这个文件在文档文件夹下，就移动，如果在上级文件夹之上，就复制。
+                    move(附件链接, 附件复制的目标路径)
+                else:
+                    copy(附件链接, 附件复制的目标路径)
                 self.线程锁.acquire()
-                self.任务内容.文档内容 = self.任务内容.文档内容.replace(附件链接, self.任务内容.目标相对文件夹路径 + '/' + os.path.basename(附件链接))
+                应替换成的内容 = self.任务内容.目标相对文件夹路径 + '/' + os.path.basename(附件链接)
+                if ' ' in 应替换成的内容:
+                    if f'<{附件链接}>' or f'"{附件链接}"' or f"'{附件链接}'" not in self.任务内容.文档内容:
+                        应替换成的内容 = f'<{应替换成的内容}>'
+                self.任务内容.文档内容 = self.任务内容.文档内容.replace(附件链接, 应替换成的内容)
                 self.线程锁.release()
             else:  # 如果即不是本地绝对路径，也不是本地相对路径，那就尝试是不是网络路径
                 下载的文件名 = 下载链接文件(self.线程序号, 附件链接, self.任务内容.下载目标路径, self.任务内容.cookie路径, self.任务内容.提醒是否要覆盖的信号, self.任务内容.进程, self.线程锁)
                 if 下载的文件名 == False:
+                    # 如果下载也失败，就有可能是指向标题，看下是不是带空格，看下用不用转成 [](<url>) 格式
+                    if ' ' in 附件链接:
+                        self.线程锁.acquire()
+                        if f'<{附件链接}>' or f'"{附件链接}"' or f"'{附件链接}'" not in self.任务内容.文档内容:
+                            应替换成的内容 = f'<{附件链接}>'
+                            self.任务内容.文档内容 = self.任务内容.文档内容.replace(附件链接, 应替换成的内容)
+                        self.线程锁.release()
                     continue
                 self.线程锁.acquire()
-                self.任务内容.文档内容 = self.任务内容.文档内容.replace(附件链接, self.任务内容.目标相对文件夹路径 + '/' + 下载的文件名)
+                应替换成的内容 = self.任务内容.目标相对文件夹路径 + '/' + 下载的文件名
+                if ' ' in 应替换成的内容:
+                    if f'<{附件链接}>' or f'"{附件链接}"' or f"'{附件链接}'" not in self.任务内容.文档内容:
+                        应替换成的内容 = f'<{应替换成的内容}>'
+                self.任务内容.文档内容 = self.任务内容.文档内容.replace(附件链接, 应替换成的内容)
                 self.线程锁.release()
                 print(f'现在开始替换\n原始：{附件链接}\n替换成：{self.任务内容.目标相对文件夹路径 + "/" + 下载的文件名}')
                 print('')
@@ -165,7 +198,7 @@ def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 
     有线程还活着 = True
     while 有线程还活着:
         for i in range(线程数):
-            if 链接列表本地化线程[i].isAlive():
+            if 链接列表本地化线程[i].is_alive():
                 有线程还活着 = True
                 print(f'进程 {i} 还在工作，它正处理的链接是：{链接列表本地化线程[i].附件链接}')
                 break # 只要有一个线程还在工作，就继续 sleep
