@@ -91,27 +91,56 @@ def 从md转html再提取出链接(字符串):
 
 
 文本 = open('D:/Users/Haujet/Documents/Markdown 文档/软件笔记/Openwrt.md', encoding='utf-8').read()
-# 文本 = r"""
-# [[link](<ur>l>)
+文本 = r"""
+[link](<ur\>l>)
 
-# [[link](<ur>l23> "text")
+[link](<url23> "text")
 
-# [[link2](<ur>l234> "text")](<ur>l2345> "text")
+[![link2](<url234> "text")](<url2345> "text")
 
-# [abc](def "123")
+[abc](def "123")
 
-# [abc](def 123)
+[abc](def)
 
-# [123](\)123 123)
+[123](\)123)
 
-# [[icon](icon.ico)](12 123)  
-# """
+[![icon](icon.ico)](12)  
+"""
 
-从字符串搜索到所有附件路径(文本)
+# 从字符串搜索到所有附件路径(文本)
 
 # for 链接 in 从字符串搜索到所有附件路径(文本):
 #     print('')
 
 # 从md转html再提取出链接(文本)
 
+from markdown_it import MarkdownIt
+from markdown_it.extensions.front_matter import front_matter_plugin
+from markdown_it.extensions.footnote import footnote_plugin
+
+md = (
+    MarkdownIt()
+    .use(front_matter_plugin)
+    .use(footnote_plugin)
+    .enable('table')
+)
+text = ("""
+[link](<ur\>l>)
+
+[link](<url23> "text")
+
+[![link2](<url234> "text")](<url2345> "text")
+
+[abc](def "123")
+
+[abc](def)
+
+[123](\)123)
+
+[![icon](<icon.ico> "text")](<123> "text")  
+
+""")
+tokens = md.parse(text)
+html_text = md.render(text)
+print(html_text)
 

@@ -1,8 +1,28 @@
 # coding=utf-8
-# python setup.py sdist build
-# python setup.py sdist –formats = gztar,zip
-# twine upload "dist/Markdown-Toolbox-0.0.8.tar.gz"
-# 这是用于上传 pypi 前打包用的
+'''
+====================================================
+打包上传命令
+
+先打包：
+python setup.py sdist build
+
+再上传：
+twine upload "dist/Markdown-Toolbox-0.0.9.tar.gz"
+
+====================================================
+测试命令
+
+python setup.py sdist –formats = gztar,zip
+
+====================================================
+打包注意事项
+
+打包文件夹里一定不能有中文名的文件，文件名只能用 ascii 码
+因为 python 默认使用 utf-8 编码，但是安装到 windows 上的包信息文件
+里面的编码是系统的 gbk 编码，读取编码冲突，会出错
+导致升级卸载旧包的时候无法查看旧包的文件信息，
+无法卸载和升级
+'''
 
 
 from setuptools import setup, find_packages
@@ -15,7 +35,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setup(
     name='Markdown-Toolbox',
-    version='0.0.8',
+    version='0.0.9',
     description=(
         '一Markdown 工具箱，是我为 Markdown 笔记管理做的一个工具集。'
     ),
