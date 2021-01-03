@@ -13,6 +13,7 @@ from shutil import copy, move, rmtree, copytree
 
 
 class Tab_ClearAttatchment(QWidget):
+    状态栏消息 = Signal(str, int)
     def __init__(self):
         super().__init__()
         self.initElement()  # 先初始化各个控件

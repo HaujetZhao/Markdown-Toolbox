@@ -4,11 +4,12 @@ from PySide2.QtWidgets import *
 from PySide2.QtGui import *
 from PySide2.QtCore import *
 
-from moduels.component.Widget_StdoutBox import Widget_StdoutBox
+from moduels.component.QEditBox_StdoutBox import QEditBox_StdoutBox
 from moduels.component.NormalValue import 常量
 
 
 class Tab_Stdout(QWidget):
+    状态栏消息 = Signal(str, int)
     def __init__(self):
         super().__init__()
         self.initElement()  # 先初始化各个控件
@@ -17,7 +18,7 @@ class Tab_Stdout(QWidget):
         self.initValue()  # 再定义各个控件的值
 
     def initElement(self):
-        self.标准输出框 = Widget_StdoutBox()
+        self.标准输出框 = QEditBox_StdoutBox()
         self.主布局 = QVBoxLayout()
         pass
 

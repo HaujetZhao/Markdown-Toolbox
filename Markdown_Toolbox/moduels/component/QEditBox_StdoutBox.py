@@ -1,14 +1,20 @@
 # -*- coding: UTF-8 -*-
+import sys
 
-from PySide2.QtWidgets import *
-from PySide2.QtGui import *
+from PySide2.QtWidgets import QTextEdit
+from PySide2.QtGui import QTextCursor
+
+from moduels.component.Stream import Stream
 
 # 命令输出窗口中的多行文本框
-class Widget_StdoutBox(QTextEdit):
+class QEditBox_StdoutBox(QTextEdit):
     # 定义一个 QTextEdit 类，写入 print 方法。用于输出显示。
     def __init__(self, parent=None):
-        super(Widget_StdoutBox, self).__init__(parent)
+        super(QEditBox_StdoutBox, self).__init__(parent)
         self.setReadOnly(True)
+        self.标准输出流 = Stream()
+        self.标准输出流.newText.connect(self.print)
+        # sys.stdout = self.标准输出流
 
     def print(self, text):
         try:

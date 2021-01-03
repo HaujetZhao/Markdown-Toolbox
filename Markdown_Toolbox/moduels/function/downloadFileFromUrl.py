@@ -5,7 +5,7 @@ import urllib.error
 from urllib.parse import urlparse
 from shutil import copy, move, rmtree
 
-from moduels.component.NormalValue import 常量, 离线化线程常量
+from moduels.component.NormalValue import 常量
 
 from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
 from moduels.function.getFileNameFromUrl import 由url返回获得文件名
@@ -76,14 +76,14 @@ def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie
 
     if os.path.exists(目标文件夹路径 + '/' + 输出文件名):
         线程锁.acquire()
-        if 常量.有重名时的处理方式 == 1:  # 0 是询问，1 是全部覆盖，2 是全部跳过
+        if 常量.判断文件是否相同的方式 == 1:  # 0 是询问，1 是全部覆盖，2 是全部跳过
             线程锁.release()
             try:
                 open(目标文件夹路径 + '/' + 输出文件名, 'wb').write(返回.content)
             except:
                 print(f'写入失败：{输出文件名}')
             print(f'{线程序号} 号线程：写入完成：{目标文件夹路径 + "/" + 输出文件名}')
-        elif 常量.有重名时的处理方式 == 2:
+        elif 常量.判断文件是否相同的方式 == 2:
             线程锁.release()
         else:
             离线化线程常量.进程需要等待 = True
@@ -93,7 +93,7 @@ def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie
             线程锁.release()
             是否要覆盖 = 离线化线程常量.进程是否下载文件覆盖本地文件
             if 是否要覆盖 == QMessageBox.YesToAll:
-                常量.有重名时的处理方式 = 1
+                常量.判断文件是否相同的方式 = 1
                 try:
                     open(目标文件夹路径 + '/' + 输出文件名, 'wb').write(返回.content)
                 except:
@@ -105,7 +105,7 @@ def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie
             elif 是否要覆盖 == QMessageBox.No:
                 pass
             elif 是否要覆盖 == QMessageBox.NoToAll:
-                常量.有重名时的处理方式 = 2
+                常量.判断文件是否相同的方式 = 2
                 pass
     else:
         try:

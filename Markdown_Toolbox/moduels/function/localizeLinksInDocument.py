@@ -8,7 +8,7 @@ from moduels.function.downloadFileFromUrl import 下载链接文件
 from moduels.function.checkDirectoryPath import 检查路径
 from shutil import copy, move, rmtree
 
-from moduels.component.NormalValue import 常量, 离线化线程常量
+from moduels.component.NormalValue import 常量
 
 class TaskContent:
     """
@@ -47,7 +47,7 @@ class LocalizeLinkListThread(threading.Thread):
         else:
             # print('{self.线程序号} 号线程：列表数量不大于 0，返回 False')
             离线化线程常量.可以开启下一个文件处理线程 = True
-            离线化线程常量.正在工作线程数 -= 1
+            离线化线程常量.正在工作子线程数 -= 1
             self.线程锁.release()
             return False
         self.线程锁.release()
@@ -56,7 +56,7 @@ class LocalizeLinkListThread(threading.Thread):
 
     def run(self):
         self.线程锁.acquire()
-        离线化线程常量.正在工作线程数 += 1
+        离线化线程常量.正在工作子线程数 += 1
         self.线程锁.release()
         while self.得到链接():
             附件链接 = self.附件链接
@@ -67,9 +67,9 @@ class LocalizeLinkListThread(threading.Thread):
                 print(f'转换出的相对链接存在')
                 if 转换出的相对链接 != 附件复制的目标路径:  # 如果这个相对链接不是目标相对文件夹内的文件
                     if os.path.exists(附件复制的目标路径):
-                        if 常量.有重名时的处理方式 == 1:  # 0 是询问，1 是全部覆盖，2 是全部跳过
+                        if 常量.判断文件是否相同的方式 == 1:  # 0 是询问，1 是全部覆盖，2 是全部跳过
                             os.remove(附件复制的目标路径)
-                        elif 常量.有重名时的处理方式 == 2:
+                        elif 常量.判断文件是否相同的方式 == 2:
                             continue
                         else:
                             self.线程锁.acquire()
@@ -77,18 +77,18 @@ class LocalizeLinkListThread(threading.Thread):
                             self.任务内容.提醒是否要覆盖的信号.emit('冲突',
                                             f'目标附件已存在，是否覆盖？\n\n源文件（大小 {得到便于阅读的文件大小(os.path.getsize(转换出的相对链接))}）：\n{转换出的相对链接}\n\n目标文件（大小 {得到便于阅读的文件大小(os.path.getsize(附件复制的目标路径))}）：\n{附件复制的目标路径}\n\n')
                             while 离线化线程常量.进程需要等待:
-                                self.任务内容.进程.sleep(1)
+                                self.任务内容.离线化进程.sleep(1)
                             self.线程锁.release()
                             是否要覆盖 = 离线化线程常量.进程是否下载文件覆盖本地文件
                             if 是否要覆盖 == QMessageBox.YesToAll:
-                                常量.有重名时的处理方式 = 1
+                                常量.判断文件是否相同的方式 = 1
                                 os.remove(附件复制的目标路径)
                             elif 是否要覆盖 == QMessageBox.Yes:
                                 os.remove(附件复制的目标路径)
                             elif 是否要覆盖 == QMessageBox.No:
                                 continue
                             elif 是否要覆盖 == QMessageBox.NoToAll:
-                                常量.有重名时的处理方式 = 2
+                                常量.判断文件是否相同的方式 = 2
                                 continue
                     if os.path.dirname(self.任务内容.文档) in os.path.abspath(转换出的相对链接).replace('\\', '/'): # 如果这个文件在文档文件夹下，就移动，如果在上级文件夹之上，就复制。
                         move(转换出的相对链接, 附件复制的目标路径)
@@ -113,9 +113,9 @@ class LocalizeLinkListThread(threading.Thread):
             elif os.path.exists(附件链接):  # 如果这个文件是本地绝对路径，就转为相对路径
                 print(f'该链接为绝对路径，现将其转为相对路径：{附件链接}')
                 if os.path.exists(附件复制的目标路径):
-                    if 常量.有重名时的处理方式 == 1:  # 0 是询问，1 是全部覆盖，2 是全部跳过
+                    if 常量.判断文件是否相同的方式 == 1:  # 0 是询问，1 是全部覆盖，2 是全部跳过
                         os.remove(附件复制的目标路径)
-                    elif 常量.有重名时的处理方式 == 2:
+                    elif 常量.判断文件是否相同的方式 == 2:
                         continue
                     else:
                         self.线程锁.acquire()
@@ -123,18 +123,18 @@ class LocalizeLinkListThread(threading.Thread):
                         self.任务内容.提醒是否要覆盖的信号.emit('冲突',
                                         f'目标附件已存在，是否覆盖？\n\n源文件（大小 {得到便于阅读的文件大小(os.path.getsize(附件链接))}）：\n{附件链接}\n\n目标文件（大小 {得到便于阅读的文件大小(os.path.getsize(附件复制的目标路径))}）：\n{附件复制的目标路径}\n\n')
                         while 离线化线程常量.进程需要等待:
-                            self.任务内容.进程.sleep(1)
+                            self.任务内容.离线化进程.sleep(1)
                         self.线程锁.release()
                         是否要覆盖 = 离线化线程常量.进程是否下载文件覆盖本地文件
                         if 是否要覆盖 == QMessageBox.YesToAll:
-                            常量.有重名时的处理方式 = 1
+                            常量.判断文件是否相同的方式 = 1
                             os.remove(附件复制的目标路径)
                         elif 是否要覆盖 == QMessageBox.Yes:
                             os.remove(附件复制的目标路径)
                         elif 是否要覆盖 == QMessageBox.No:
                             continue
                         elif 是否要覆盖 == QMessageBox.NoToAll:
-                            常量.有重名时的处理方式 = 2
+                            常量.判断文件是否相同的方式 = 2
                             continue
 
                 if os.path.dirname(self.任务内容.文档) in os.path.abspath(转换出的相对链接).replace('\\', '/'): # 如果这个文件在文档文件夹下，就移动，如果在上级文件夹之上，就复制。
@@ -149,7 +149,7 @@ class LocalizeLinkListThread(threading.Thread):
                 self.任务内容.文档内容 = self.任务内容.文档内容.replace(附件链接, 应替换成的内容)
                 self.线程锁.release()
             else:  # 如果即不是本地绝对路径，也不是本地相对路径，那就尝试是不是网络路径
-                下载的文件名 = 下载链接文件(self.线程序号, 附件链接, self.任务内容.下载目标路径, self.任务内容.cookie路径, self.任务内容.提醒是否要覆盖的信号, self.任务内容.进程, self.线程锁)
+                下载的文件名 = 下载链接文件(self.线程序号, 附件链接, self.任务内容.下载目标路径, self.任务内容.cookie路径, self.任务内容.提醒是否要覆盖的信号, self.任务内容.离线化进程, self.线程锁)
                 if 下载的文件名 == False:
                     # 如果下载也失败，就有可能是指向标题，看下是不是带空格，看下用不用转成 [](<url>) 格式
                     if ' ' in 附件链接:
@@ -175,7 +175,7 @@ class LocalizeLinkListThread(threading.Thread):
 
 
 
-def 将文档索引的链接本地化(文档, 附件链接列表, cookie路径, 目标相对文件夹路径, 提醒是否要覆盖的信号, 进程, 下载线程锁):
+def 将文档索引的链接本地化(主线程, 文档, 附件链接列表, cookie路径, 目标相对文件夹路径, 提醒是否要覆盖的信号, 进程, 下载线程锁):
     下载目标路径 = os.path.dirname(文档) + '/' + 目标相对文件夹路径
     if not 检查路径(下载目标路径): # 先确保下载附件的文件夹存在
         return False
