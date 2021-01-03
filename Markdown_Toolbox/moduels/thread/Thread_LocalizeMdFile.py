@@ -480,6 +480,7 @@ class Thread_LocalizeMdFile(QThread):
             移动源到目标 = False
 
         if 移动源到目标 and os.path.exists(源):
+            self.检查文件夹路径(pathlib.Path(目标).parent)
             if pathlib.Path(源).parent == pathlib.Path(文档.文档路径).parent or pathlib.Path(源).parent == pathlib.Path(目标).parent: # 文件和文档同级
                 print(f'移动文件：\n      源：{源}\n    目标：{目标}\n')
                 move(源, 目标)

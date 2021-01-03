@@ -177,8 +177,8 @@ class Tab_CopyMdFile(QWidget):
             # 复制或移动文档
             print('开始转移文档')
             try:
+                self.检查文件夹路径(Md文件的输出目标Path.parent)
                 if self.转移md文档时是否为移动: # 再将文档文件本身移动
-
                     move(输入文件Path, Md文件的输出目标Path)
                     print(f'成功移动文件：\n    输入：{输入文件Path}\n    输出：{Md文件的输出目标Path}')
                 else:
