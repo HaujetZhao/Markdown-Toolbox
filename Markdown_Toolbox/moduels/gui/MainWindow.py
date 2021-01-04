@@ -1,21 +1,20 @@
 # -*- coding: UTF-8 -*-
 
-from PySide2.QtWidgets import *
-from PySide2.QtGui import *
+import sys
+
 from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 
 from moduels.component.NormalValue import 常量
-from moduels.component.Stream import Stream
-
+from moduels.gui.Tab_ClearAttatchment import Tab_ClearAttatchment
+from moduels.gui.Tab_Config import Tab_Config
 # try:
 from moduels.gui.Tab_CopyMdFile import Tab_CopyMdFile
-from moduels.gui.Tab_LocalizeMdFile import Tab_LocalizeMdFile
-from moduels.gui.Tab_ClearAttatchment import Tab_ClearAttatchment
-from moduels.gui.Tab_Stdout import Tab_Stdout
-from moduels.gui.Tab_Config import Tab_Config
 from moduels.gui.Tab_Help import Tab_Help
+from moduels.gui.Tab_LocalizeMdFile import Tab_LocalizeMdFile
+from moduels.gui.Tab_Stdout import Tab_Stdout
 
-import sys
 
 class MainWindow(QMainWindow):
 

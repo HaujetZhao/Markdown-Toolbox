@@ -1,6 +1,8 @@
 # -*- coding: UTF-8 -*-
 
-import os, hashlib
+import hashlib
+import os
+
 
 # 后面可以改成 filecmp 的方法
 

@@ -1,12 +1,13 @@
 # -*- coding: UTF-8 -*-
 
-from PySide2.QtWidgets import QSystemTrayIcon, QMenu, QApplication, QAction
-from PySide2.QtGui import QIcon
-from PySide2.QtCore import Qt
-
 import sys
 
+from PySide2.QtCore import Qt
+from PySide2.QtGui import QIcon
+from PySide2.QtWidgets import QSystemTrayIcon, QMenu, QApplication, QAction
+
 from moduels.component.NormalValue import 常量
+
 
 class SystemTray(QSystemTrayIcon):
     def __init__(self, 主窗口):

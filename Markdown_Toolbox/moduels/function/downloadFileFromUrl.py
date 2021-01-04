@@ -1,19 +1,14 @@
-import os, re, time, _io, socket, requests
-from http.cookiejar import MozillaCookieJar
-from urllib import request, error
-import urllib.error
+import os
+import re
+import requests
 from urllib.parse import urlparse
-from shutil import copy, move, rmtree
-
-from moduels.component.NormalValue import 常量
-
-from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
-from moduels.function.getFileNameFromUrl import 由url返回获得文件名
-from moduels.function.processHeaders import 处理Headers
 
 from PySide2.QtWidgets import *
 
-
+from moduels.component.NormalValue import 常量
+from moduels.function.getFileNameFromUrl import 由url返回获得文件名
+from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
+from moduels.function.processHeaders import 处理Headers
 
 
 def 下载链接文件(线程序号, 附件链接, 目标文件夹路径, cookie路径, 提醒是否要覆盖的信号, 进程, 线程锁):  # 0 是询问，1 是全部覆盖，2 是全部跳过

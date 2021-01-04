@@ -1,8 +1,10 @@
 # -*- coding: UTF-8 -*-
 
-from PySide2.QtWidgets import *
 from PySide2.QtCore import *
+from PySide2.QtWidgets import *
+
 from moduels.component.NormalValue import 常量
+
 
 # 可拖入文件的单行编辑框
 class Widget_FileLineEdit(QLineEdit):

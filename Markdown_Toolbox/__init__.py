@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
-import os, sys, time
+import os
+import sys
 
 os.chdir(os.path.dirname(os.path.abspath(__file__))) # 更改工作目录，指向正确的当前文件夹
 sys.path.append(os.path.dirname(os.path.abspath(__file__))) # 将当前目录导入 python 寻找 package 和 moduel 的变量

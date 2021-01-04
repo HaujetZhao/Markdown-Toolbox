@@ -1,11 +1,13 @@
 # -*- coding: UTF-8 -*-
 
-from PySide2.QtWidgets import *
+import os
+import webbrowser
+
 from PySide2.QtCore import Signal
+from PySide2.QtWidgets import *
+
 from moduels.component.NormalValue import 常量
 from moduels.component.SponsorDialog import SponsorDialog
-
-import os, webbrowser
 
 
 class Tab_Help(QWidget):

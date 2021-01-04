@@ -1,10 +1,13 @@
 # -*- coding: UTF-8 -*-
 
+import os
+import pathlib
+
 from PySide2.QtWidgets import *
-from moduels.component.NormalValue import 常量
+
 from moduels.function.compareTwoFiles import 文件大小比较新旧文件是否相同, MD5比较新旧文件是否相同
 from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
-import os, webbrowser, pathlib
+
 
 def 处理相同文件名冲突(对象, 附件复制的源路径Path, 附件复制的目标路径Path):
 

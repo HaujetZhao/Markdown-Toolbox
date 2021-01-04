@@ -1,14 +1,16 @@
 
-import os, threading, time
+import os
+import threading
+import time
+from shutil import copy, move
 
 from PySide2.QtWidgets import *
 
-from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
-from moduels.function.downloadFileFromUrl import 下载链接文件
-from moduels.function.checkDirectoryPath import 检查路径
-from shutil import copy, move, rmtree
-
 from moduels.component.NormalValue import 常量
+from moduels.function.checkDirectoryPath import 检查路径
+from moduels.function.downloadFileFromUrl import 下载链接文件
+from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
+
 
 class TaskContent:
     """

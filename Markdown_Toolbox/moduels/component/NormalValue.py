@@ -1,6 +1,6 @@
-import sqlite3
 import platform
-import subprocess
+import sqlite3
+
 
 class NormalValue():
     样式文件 = 'misc/style.css'

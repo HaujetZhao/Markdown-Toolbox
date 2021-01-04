@@ -1,20 +1,18 @@
 # -*- coding: UTF-8 -*-
 
-from PySide2.QtWidgets import *
-from PySide2.QtGui import *
+import os
+import pathlib
+from shutil import copy, move
+
 from PySide2.QtCore import *
+from PySide2.QtWidgets import *
 
 from moduels.component.NormalValue import 常量
-from moduels.component.Widget_FileList import Widget_FileList
 from moduels.component.Widget_FileLineEdit import Widget_FileLineEdit
-from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
+from moduels.component.Widget_FileList import Widget_FileList
 from moduels.function.getAllUrlFromString import 从字符串搜索到所有附件路径
 from moduels.function.getConflictSolution import 处理相同文件名冲突
 
-
-import os, re, pathlib
-
-from shutil import copy, move
 
 class Tab_CopyMdFile(QWidget):
     状态栏消息 = Signal(str, int)

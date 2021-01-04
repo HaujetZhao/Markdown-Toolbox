@@ -1,17 +1,15 @@
 # -*- coding: UTF-8 -*-
 
-from PySide2.QtWidgets import *
-from PySide2.QtGui import *
+import os
+
 from PySide2.QtCore import *
+from PySide2.QtWidgets import *
 
 from moduels.component.NormalValue import 常量
-from moduels.component.Widget_FileList import Widget_FileList
 from moduels.component.Widget_FileLineEdit import Widget_FileLineEdit
-from moduels.thread.Thread_LocalizeMdFile import Thread_LocalizeMdFile
+from moduels.component.Widget_FileList import Widget_FileList
 from moduels.function.getConflictSolution import 处理相同文件名冲突
-
-import os
-from shutil import copy, move, rmtree
+from moduels.thread.Thread_LocalizeMdFile import Thread_LocalizeMdFile
 
 
 class Tab_LocalizeMdFile(QWidget):

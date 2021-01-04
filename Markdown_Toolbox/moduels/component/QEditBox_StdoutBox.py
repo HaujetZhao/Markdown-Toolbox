@@ -1,10 +1,10 @@
 # -*- coding: UTF-8 -*-
-import sys
 
-from PySide2.QtWidgets import QTextEdit
 from PySide2.QtGui import QTextCursor
+from PySide2.QtWidgets import QTextEdit
 
 from moduels.component.Stream import Stream
+
 
 # 命令输出窗口中的多行文本框
 class QEditBox_StdoutBox(QTextEdit):

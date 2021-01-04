@@ -1,11 +1,6 @@
-import os, re
-from http.cookiejar import MozillaCookieJar
-from urllib import request, error
-import urllib.error
+import os
+import re
 from urllib.parse import urlparse
-from shutil import copy, move, rmtree
-
-from moduels.component.NormalValue import 常量
 
 
 def 由url返回获得文件名(url, 返回):

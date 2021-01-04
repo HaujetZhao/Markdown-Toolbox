@@ -1,10 +1,13 @@
 # -*- coding: UTF-8 -*-
 
-from PySide2.QtWidgets import *
+import os
+import re
+
 from PySide2.QtCore import *
+from PySide2.QtWidgets import *
+
 from moduels.component.NormalValue import 常量
 
-import re, os
 
 class Widget_FileList(QListWidget):
     """这个列表控件可以拖入文件"""

@@ -2,17 +2,16 @@
 
 # 暂时放弃在一个新线程内处理这个了。
 
-from PySide2.QtWidgets import *
-from PySide2.QtGui import *
+import os
+import time
+from shutil import copy, move
+
 from PySide2.QtCore import *
+from PySide2.QtWidgets import *
 
 from moduels.component.NormalValue import 常量, 复制和移动文档线程常量
 from moduels.function.getAllUrlFromString import 从字符串搜索到所有附件路径
-from moduels.function.checkDirectoryPath import 检查路径
-from moduels.function.restoreLinkFromJump import 跳转链接还原
 
-import os, re, time
-from shutil import copy, move
 
 class Thread_TransportFile(QThread):
 

@@ -1,24 +1,25 @@
 # -*- coding: UTF-8 -*-
 
-from PySide2.QtWidgets import *
-from PySide2.QtGui import *
+import os
+import pathlib
+import re
+import requests
+import tempfile
+import threading
+import time
+import urllib.error
+from shutil import copy, move, rmtree
+from urllib import parse
+from urllib.parse import urlparse
+
 from PySide2.QtCore import *
 
 from moduels.component.NormalValue import 常量
 from moduels.function.getAllUrlFromString import 从字符串搜索到所有附件路径
-from moduels.function.checkDirectoryPath import 检查路径
-
-import os, re, time, threading, pathlib, _io, socket, requests, tempfile
-from http.cookiejar import MozillaCookieJar
-from urllib import request, error, parse
-import urllib.error
-from urllib.parse import urlparse
-from shutil import copy, move, rmtree, copytree
-
-
-from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
 from moduels.function.getFileNameFromUrl import 由url返回获得文件名
+from moduels.function.getHumanReadableFileSize import 得到便于阅读的文件大小
 from moduels.function.processHeaders import 处理Headers
+
 
 class Document():
     def __init__(self, 文档路径, 相对路径):

@@ -1,7 +1,6 @@
 from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtSql import *
 from PySide2.QtWidgets import *
+
 from moduels.component.NormalValue import 常量
 from moduels.gui.HBox_RBtnContainer import HBox_RBtnContainer
 from moduels.gui.VBox_RBtnContainer import VBox_RBtnContainer
