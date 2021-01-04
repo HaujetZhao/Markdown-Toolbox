@@ -32,6 +32,10 @@ class Tab_Config(QWidget):
         self.全部保留二者单选按钮 = QRadioButton('全部保留二者')
         self.同名文件冲突时的处理Box纵向布局 = VBox_RBtnContainer()
 
+        self.线程Box = QGroupBox(self.tr('离线化下载线程数'))
+        self.线程数SpinBox = QSpinBox()
+        self.线程Box纵向布局 = VBox_RBtnContainer()
+
         self.页面布局 = QVBoxLayout()
 
     def initSlots(self):
@@ -51,6 +55,8 @@ class Tab_Config(QWidget):
         self.全部保留二者单选按钮.setProperty('id', 3)
         self.全部保留二者单选按钮.toggled.connect(lambda e: self.设置_文件冲突默认处理方式(3) if e else 0)
 
+        self.线程数SpinBox.valueChanged.connect(self.设置_离线化线程数)
+
     def initLayouts(self):
         self.程序设置Box横向布局.addWidget(self.开关_关闭窗口时隐藏到托盘)
         self.程序设置Box.setLayout(self.程序设置Box横向布局)
@@ -65,14 +71,21 @@ class Tab_Config(QWidget):
         self.同名文件冲突时的处理Box纵向布局.addWidget(self.全部保留二者单选按钮)
         self.同名文件冲突时的处理Box.setLayout(self.同名文件冲突时的处理Box纵向布局)
 
+        self.线程Box纵向布局.addWidget(self.线程数SpinBox)
+        self.线程Box.setLayout(self.线程Box纵向布局)
+
         self.页面布局.addWidget(self.程序设置Box)
         self.页面布局.addWidget(self.判断同名文件是否相同的方法Box)
         self.页面布局.addWidget(self.同名文件冲突时的处理Box)
+        self.页面布局.addWidget(self.线程Box)
         self.页面布局.addStretch(1)
 
         self.setLayout(self.页面布局)
 
     def initValues(self):
+        self.线程数SpinBox.setAlignment(Qt.AlignCenter)
+        self.线程数SpinBox.setMinimum(3)
+        self.线程数SpinBox.setMaximum(999)
         self.检查数据库()
 
 
@@ -82,6 +95,7 @@ class Tab_Config(QWidget):
         self.检查数据库_关闭时最小化(数据库连接)
         self.检查数据库_判断文件是否相同的方式(数据库连接)
         self.检查数据库_文件冲突默认处理方式(数据库连接)
+        self.检查数据库_离线化线程数(数据库连接)
 
     def 检查数据库_关闭时最小化(self, 数据库连接):
         result = 数据库连接.cursor().execute(f'''select value from {常量.偏好设置表单名} where item = :item''',
@@ -117,6 +131,7 @@ class Tab_Config(QWidget):
         else:
             self.判断同名文件是否相同的方法Box纵向布局.通过id勾选单选按钮(int(result[0]))
 
+
     def 设置_判断文件是否相同的方式(self, 值):
         常量.判断文件是否相同的方式 = 值
         conn = 常量.数据库连接
@@ -148,5 +163,28 @@ class Tab_Config(QWidget):
                                                         where item = :item ''',
                        {'文件冲突默认处理方式': 值,
                         'item': '文件冲突默认处理方式'})
+        conn.commit()
+
+    def 检查数据库_离线化线程数(self, 数据库连接):
+        result = 数据库连接.cursor().execute(f'''select value from {常量.偏好设置表单名} where item = :item''',
+                                {'item': '离线化线程数'}).fetchone()
+        if result == None: # 如果关闭窗口最小化到状态栏这个选项还没有在数据库创建，那就创建一个
+            初始值 = '30'
+            数据库连接.cursor().execute(f'''insert into {常量.偏好设置表单名} (item, value) values (:item, :value) ''',
+                           {'item': '离线化线程数',
+                            'value':初始值})
+            数据库连接.commit()
+            self.线程数SpinBox.setValue(int(初始值))
+        else:
+            self.线程数SpinBox.setValue(int(result[0]))
+
+    def 设置_离线化线程数(self, 值):
+        常量.离线化子线程数 = 值
+        conn = 常量.数据库连接
+        cursor = conn.cursor()
+        cursor.execute(f'''update {常量.偏好设置表单名} set value = :离线化线程数
+                                                        where item = :item ''',
+                       {'离线化线程数': 值,
+                        'item': '离线化线程数'})
         conn.commit()
 

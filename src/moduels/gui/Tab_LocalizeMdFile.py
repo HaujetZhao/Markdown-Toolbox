@@ -161,6 +161,7 @@ class Tab_LocalizeMdFile(QWidget):
         self.离线化进程.cookie路径 = self.cookie路径输入框.text()
         self.离线化进程.目标相对路径 = self.输出相对路径输入框.text()
         self.离线化进程.提醒是否要覆盖的信号.connect(self.弹窗询问是否要覆盖写入文件)
+        self.离线化进程.离线化子线程数 = 常量.离线化子线程数
         self.离线化进程.start()
 
     def 弹窗询问是否要覆盖写入文件(self, 标题, 内容):
