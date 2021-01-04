@@ -1,6 +1,6 @@
 
 
-#  ![icon](assets/icon.png) Markdown 工具箱
+#  ![icon](src/misc/icon.ico) Markdown 工具箱
 
 > 更新日期：2020 年 10 月 4 日
 
@@ -26,7 +26,7 @@ Markdown 工具箱，是我为 Markdown 笔记管理做的一个工具集。目�
 
 已发布到 pypi 上，安装 python3 后，使用 `pip install Markdown-Toolbox` 即可安装，再使用 `MarkdownToolbox` 或 `Markdown-Toolbox` 命令就可以启动了。
 
-你也可以将仓库克隆到本地，在 `src` 文件夹内，先使用 `pip install -r requirements.txt` 安装依赖后，使用 `python __init__.py` 启动。
+你也可以将仓库克隆到本地，先使用 `pip install -r requirements.txt` 安装依赖后，使用 `python __init__.py` 启动。
 
 有空的话我会打包 Win64 的 exe 版本到发行界面。
 
@@ -88,7 +88,7 @@ Markdown 工具箱，是我为 Markdown 笔记管理做的一个工具集。目�
 
 万水千山总是情，一块几块都是情。本软件完全开源，用爱发电，如果你愿意，可以以打赏的方式支持我一下：
 
-![sponsor](assets/sponsor.jpg)
+![sponsor](src/misc/sponsor.jpg)
 
 
 
