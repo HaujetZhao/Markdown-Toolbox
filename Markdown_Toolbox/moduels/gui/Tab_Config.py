@@ -35,7 +35,7 @@ class Tab_Config(QWidget):
         self.页面布局 = QVBoxLayout()
 
     def initSlots(self):
-        self.开关_关闭窗口时隐藏到托盘.clicked.connect(self.设置_关闭时最小化)
+        self.开关_关闭窗口时隐藏到托盘.toggled.connect(self.设置_关闭时最小化)
 
         self.只看大小大小方法单选按钮.setProperty('id', 0)
         self.只看大小大小方法单选按钮.toggled.connect(lambda e: self.设置_判断文件是否相同的方式(0) if e else 0)

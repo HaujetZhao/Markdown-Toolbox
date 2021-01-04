@@ -111,7 +111,7 @@ class Thread_ClearAttatchment(QThread):
             if os.path.exists(os.path.join(os.path.dirname(文件), 链接)) and os.path.dirname(链接) != '':
                 if os.path.dirname(文件) in (pathlib.Path(os.path.dirname(文件)) / 链接).as_posix():
                     有效相对路径集合.add(链接)
-        print(f'得到文档的所有相对路径：\n    文档：{文档}\n    相对文件夹：{有效相对路径集合}\n')
+        print(f'得到文档的所有相对路径：\n    文档：{文件}\n    相对文件夹：{有效相对路径集合}\n')
         return 有效相对路径集合
 
     def 得到所有相对路径中的文件(self, 文件夹列表):

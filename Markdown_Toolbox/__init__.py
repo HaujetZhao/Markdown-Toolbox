@@ -32,6 +32,7 @@ def main():
     常量.主窗口 = mainWindow
     tray = SystemTray(mainWindow)
     常量.托盘 = tray
+
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

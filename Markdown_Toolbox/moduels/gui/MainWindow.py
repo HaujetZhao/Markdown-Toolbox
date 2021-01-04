@@ -52,7 +52,7 @@ class MainWindow(QMainWindow):
         self.标签页控件.addTab(self.复制功能标签页, self.tr('复制'))
         self.标签页控件.addTab(self.离线化功能标签页, self.tr('离线化'))
         self.标签页控件.addTab(self.清理功能标签页, self.tr('清理'))
-        self.标签页控件.addTab(self.控制台标签页, self.tr('控制台'))
+        # self.标签页控件.addTab(self.控制台标签页, self.tr('控制台'))
         self.标签页控件.addTab(self.设置标签页, self.tr('设置'))
         self.标签页控件.addTab(self.帮助标签页, self.tr('帮助'))
 
