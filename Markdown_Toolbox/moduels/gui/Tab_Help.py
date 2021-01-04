@@ -1,17 +1,16 @@
 # -*- coding: UTF-8 -*-
 
-import os
-import webbrowser
-
+from PySide2.QtWidgets import QWidget, QPushButton, QVBoxLayout
 from PySide2.QtCore import Signal
-from PySide2.QtWidgets import *
-
 from moduels.component.NormalValue import 常量
 from moduels.component.SponsorDialog import SponsorDialog
+
+import os, webbrowser
 
 
 class Tab_Help(QWidget):
     状态栏消息 = Signal(str, int)
+
     def __init__(self):
         super().__init__()
         self.initElement()  # 先初始化各个控件
@@ -20,29 +19,29 @@ class Tab_Help(QWidget):
         self.initValue()  # 再定义各个控件的值
 
     def initElement(self):
-        self.openHelpFileButton = QPushButton(self.tr('打开帮助文档'))
+        self.打开帮助按钮 = QPushButton(self.tr('打开帮助文档'))
         self.ffmpegMannualNoteButton = QPushButton(self.tr('查看作者的 FFmpeg 笔记'))
         self.openVideoHelpButtone = QPushButton(self.tr('查看视频教程'))
-        self.openGiteePage = QPushButton(self.tr('当前版本是 %s，到 Gitee 检查新版本') % 常量.软件版本)
-        self.openGithubPage = QPushButton(self.tr('当前版本是 %s，到 Github 检查新版本') % 常量.软件版本)
+        self.openGiteePage = QPushButton(self.tr(f'当前版本是 v{常量.软件版本}，到 Gitee 检查新版本'))
+        self.openGithubPage = QPushButton(self.tr(f'当前版本是 v{常量.软件版本}，到 Github 检查新版本'))
         self.linkToDiscussPage = QPushButton(self.tr('加入 QQ 群'))
         self.tipButton = QPushButton(self.tr('打赏作者'))
 
         self.masterLayout = QVBoxLayout()
 
     def initSlots(self):
-        self.openHelpFileButton.clicked.connect(self.openHelpDocument)
+        self.打开帮助按钮.clicked.connect(self.openHelpDocument)
         self.ffmpegMannualNoteButton.clicked.connect(lambda: webbrowser.open(self.tr(r'https://hacpai.com/article/1595480295489')))
-        self.openVideoHelpButtone.clicked.connect(lambda: webbrowser.open(self.tr(r'https://www.bilibili.com/video/BV18T4y1E7FF/')))
+        self.openVideoHelpButtone.clicked.connect(lambda: webbrowser.open(self.tr(r'https://www.bilibili.com/video/BV12A411p73r/')))
         self.openGiteePage.clicked.connect(lambda: webbrowser.open(self.tr(r'https://gitee.com/haujet/Markdown-Toolbox/releases')))
         self.openGithubPage.clicked.connect(lambda: webbrowser.open(self.tr(r'https://github.com/HaujetZhao/Markdown-Toolbox/releases')))
         self.linkToDiscussPage.clicked.connect(lambda: webbrowser.open(
             self.tr(r'https://qm.qq.com/cgi-bin/qm/qr?k=DgiFh5cclAElnELH4mOxqWUBxReyEVpm&jump_from=webapi')))
-        self.tipButton.clicked.connect(lambda: SponsorDialog())
+        self.tipButton.clicked.connect(lambda: SponsorDialog(self))
 
     def initLayout(self):
         self.setLayout(self.masterLayout)
-        self.masterLayout.addWidget(self.openHelpFileButton)
+        # self.masterLayout.addWidget(self.打开帮助按钮)
         # self.masterLayout.addWidget(self.ffmpegMannualNoteButton)
         # self.masterLayout.addWidget(self.openVideoHelpButtone)
         self.masterLayout.addWidget(self.openGiteePage)
@@ -51,7 +50,7 @@ class Tab_Help(QWidget):
         self.masterLayout.addWidget(self.tipButton)
 
     def initValue(self):
-        self.openHelpFileButton.setMaximumHeight(100)
+        self.打开帮助按钮.setMaximumHeight(100)
         self.ffmpegMannualNoteButton.setMaximumHeight(100)
         self.openVideoHelpButtone.setMaximumHeight(100)
         self.openGiteePage.setMaximumHeight(100)
