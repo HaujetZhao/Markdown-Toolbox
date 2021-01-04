@@ -115,7 +115,7 @@ class Document():
         self.全部路径集合 = set(从字符串搜索到所有附件路径(self.文档内容))
         for 路径 in self.全部路径集合:
             if ' ' in 路径:
-                if f'<{路径}>' not in self.文档内容 or f'"{路径}"' not in self.文档内容 or f"'{路径}'" not in self.文档内容:
+                if f'<{路径}>' not in self.文档内容 and f'"{路径}"' not in self.文档内容 and f"'{路径}'" not in self.文档内容:
                     应替换成的内容 = f'<{路径}>'
                     self.文档线程锁.acquire()
                     self.文档内容 = self.文档内容.replace(str(路径), 应替换成的内容)

@@ -7,7 +7,7 @@
 python setup.py sdist build
 
 再上传：
-twine upload "dist/Markdown-Toolbox-0.0.9.tar.gz"
+twine upload "dist/Markdown-Toolbox-1.0.0.tar.gz"
 
 ====================================================
 测试命令
@@ -35,7 +35,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setup(
     name='Markdown-Toolbox',
-    version='0.0.9',
+    version='1.0.0',
     description=(
         '一Markdown 工具箱，是我为 Markdown 笔记管理做的一个工具集。'
     ),
@@ -50,22 +50,22 @@ setup(
     install_requires=[ # 需要额外安装的包
         'PySide2'
         ],
-    packages=['Markdown_Toolbox',
-              'Markdown_Toolbox/misc',
-              'Markdown_Toolbox/moduels/component',
-              'Markdown_Toolbox/moduels/function',
-              'Markdown_Toolbox/moduels/gui',
-              'Markdown_Toolbox/moduels/thread'], # 需要打包的本地包（package）
+    packages=['src',
+              'src/misc',
+              'src/moduels/component',
+              'src/moduels/function',
+              'src/moduels/gui',
+              'src/moduels/thread'], # 需要打包的本地包（package）
     package_data={ # 每个本地包中需要包含的另外的文件
-        'Markdown_Toolbox': ['*.md',
+        'src': ['*.md',
                 'style.css', 
                 'requirements.txt'],
-        'Markdown_Toolbox/misc':['Docs/*.*', '*.ico', '*.icns', '*.jpg']},
+        'src/misc':['Docs/*.*', '*.ico', '*.icns', '*.jpg', 'style.css']},
     
     entry_points={  # Optional console gui
         'gui_scripts': [
-            'Markdown-Toolbox=Markdown_Toolbox.__init__:main',
-            'MarkdownToolbox=Markdown_Toolbox.__init__:main'
+            'Markdown-Toolbox=src.__init__:main',
+            'MarkdownToolbox=src.__init__:main'
         ]},
     
     

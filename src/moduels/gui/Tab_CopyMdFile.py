@@ -149,6 +149,7 @@ class Tab_CopyMdFile(QWidget):
 
             # 得到输入文件附件列表
             搜索到的路径字符串列表 = 从字符串搜索到所有附件路径(self.输入文件内容) # 从文档内容得到链接列表
+            print(self.输入文件内容)
 
             # 复制或移动所有附件
             if 搜索到的路径字符串列表 != []:
@@ -206,6 +207,7 @@ class Tab_CopyMdFile(QWidget):
 
             # 得到附件绝对路径
             绝对路径Path = 文档所在文件夹Path / 附件路径
+            print(f'一个绝对路径： {绝对路径Path}')
 
             # 如果附件绝对路径不存在，则返回
             if not os.path.exists(绝对路径Path): continue
